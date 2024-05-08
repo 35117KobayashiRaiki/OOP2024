@@ -1,42 +1,45 @@
 namespace BallApp {
     public partial class Form1 : Form {
-        private double posX;    //X座標
-        private double posY;    //Y座標
-        private double moveX;   //移動量 (X方向)
-        private double moveY;   //移動量 (Y方向)
+        Obj ball;
+        PictureBox pb;
 
         //コンストラクタ
         public Form1() {
             InitializeComponent();
 
-            moveX = moveY = 10;
         }
 
         //フォームが最初にロードされるとき一度だけ実行される
         private void Form1_Load(object sender, EventArgs e) {
-            //this.BackColor = Color.Green;
-            timer1.Start();
+
         }
 
         private void timer1_Tick(object sender, EventArgs e) {
-            //現在位置を表示
-            this.Text = pbBall.Location.ToString();
 
-            if (pbBall.Location.X > 750 || pbBall.Location.X < 0) {
-                //移動量の符号を反転
-                moveX = -moveX;
+            ball.Move();
+            pb.Location = new Point((int)ball.PosX, (int)ball.PosY);
+
+        }
+
+        private void Form1_MouseClick(object sender, MouseEventArgs e) {
+
+            pb = new PictureBox();   //画像を表示するコントロール
+            pb.Size = new Size(50, 50);
+
+            if (e.Button == MouseButtons.Left) {
+                ball = new SoccerBall(e.X - 25, e.Y - 25);
+                pb.Size = new Size(50, 50);
+
+            } else if (e.Button == MouseButtons.Right) {
+                ball = new TennisBall(e.X - 12, e.Y - 12);
+                pb.Size = new Size(25, 25);
+
             }
-
-            if (pbBall.Location.Y > 500 || pbBall.Location.Y < 0) {
-                //移動量の符号を反転
-                moveY = -moveY;
-            }
-
-            posX += moveX;
-            posY += moveY;
-
-            pbBall.Location = new Point((int)posX,(int)posY);
-
-            }
+            pb.Image = ball.Image;
+            pb.Location = new Point((int)ball.PosX, (int)ball.PosY);
+            pb.SizeMode = PictureBoxSizeMode.StretchImage;
+            pb.Parent = this;
+            timer1.Start();
+        }
     }
 }
