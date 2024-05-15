@@ -35,15 +35,13 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_3(List<int> numbers) {
-            IEnumerable<int> query = numbers.Where(num => num >= 50);
-            foreach (var num in query)
-                Console.WriteLine(num);
+            numbers.Where(n => 50 <= n).ToList().ForEach(n => Console.WriteLine(n));
+            
         }
 
         private static void Exercise1_4(List<int> numbers) {
-            IEnumerable<int> query = numbers.Select(num => num * 2).ToList();
-            foreach (var num in query)
-                Console.WriteLine(num);
+            numbers.Select(n => n * 2).ToList().ForEach(n => Console.WriteLine(n)); 
+            
 
         }
     }
