@@ -35,7 +35,9 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_3(List<int> numbers) {
-            
+            IEnumerable<int> query = numbers.Where(num => num >= 50);
+            foreach (var num in query)
+                Console.WriteLine(num);
         }
 
         private static void Exercise1_4(List<int> numbers) {
