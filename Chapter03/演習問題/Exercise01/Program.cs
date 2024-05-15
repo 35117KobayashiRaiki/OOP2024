@@ -41,7 +41,10 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_4(List<int> numbers) {
-            
+            IEnumerable<int> query = numbers.Select(num => num * 2).ToList();
+            foreach (var num in query)
+                Console.WriteLine(num);
+
         }
     }
 }
