@@ -51,7 +51,8 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_3(List<string> names) {
-            
+            names.Where(n => n.Contains("o")).ToList()
+                 .ForEach(n => Console.WriteLine(n));
         }
 
         private static void Exercise2_4(List<string> names) {
