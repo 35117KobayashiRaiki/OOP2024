@@ -9,6 +9,7 @@ namespace BallApp {
     internal class SoccerBall : Obj {
         Random random = new Random();   //乱数インスタンス
         public static int Count { get;set; }
+        public static int scoreCount { get; set; }
 
         public SoccerBall(double xp, double yp) 
             : base(xp,yp,@"Picture\soccer_ball.png"){
@@ -19,7 +20,9 @@ namespace BallApp {
             Count++;
         }
 
-        public override bool Move(PictureBox pbBar, PictureBox pbBall) {
+        //戻り値:0 移動OK 1 落下した 2 バーに当たった
+        public override int Move(PictureBox pbBar, PictureBox pbBall) {
+            int ret = 0;
             Rectangle rBar = new Rectangle(pbBar.Location.X,pbBar.Location.Y,
                                                              pbBar.Width,pbBar.Height);
             Rectangle rBall = new Rectangle(pbBall.Location.X, pbBall.Location.Y,
@@ -29,16 +32,27 @@ namespace BallApp {
                 //移動量の符号を反転
                 MoveX = -MoveX;
             }
-
-            if (PosY > 500 || PosY < 0 || rBar.IntersectsWith(rBall)){
+            
+            if (PosY < 0){
                 //移動量の符号を反転
                 MoveY = -MoveY;
+            }
+
+            //バーに当たったかの判定(IntersectsWith)
+            if (rBar.IntersectsWith(rBall)) {
+                MoveY = -MoveY;
+                ret = 2;
             }
 
             PosX += MoveX;
             PosY += MoveY;
 
-            return true;
+            //下に落下したか
+            if (PosY > 600)
+                ret = 1;
+
+            //移動完了
+            return ret;
         }
 
         public override bool Move(Keys direction) {
