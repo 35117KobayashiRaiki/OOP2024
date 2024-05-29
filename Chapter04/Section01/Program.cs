@@ -28,15 +28,27 @@ namespace Section01 {
 
             Console.Write("整数を入力:");
             string inputNum = Console.ReadLine();
-            int num;
 
-            if (int.TryParse(inputNum, out num)) {
-                Console.WriteLine("整数に変換した値:" + num);
-            } else {
-                Console.WriteLine("失敗しました");
+            try {
+                int num = int.Parse(inputNum);
+            }
+            catch(FormatException ex) {
+                Console.WriteLine("FormatException" + ex.Message);
+            }
+            catch (AggregateException ex) {
+                Console.WriteLine("AggregateExceptio" + ex.Message);
+            }
+            catch (OverflowException ex) {
+                Console.WriteLine("OverflowException" + ex.Message);
+            }
+            finally {
+                Console.WriteLine("処理が終了しました");
             }
 
-            
+
+
+
+
         }
             
             
