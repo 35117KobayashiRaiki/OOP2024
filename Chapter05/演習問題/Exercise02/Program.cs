@@ -12,16 +12,12 @@ namespace Exercise02 {
             int num;
 
             if (int.TryParse(input, out num)) {
-                var comma = num.ToString("N0");
-                Console.WriteLine(comma);
+                //var comma = num.ToString("N0");
+                //Console.WriteLine(comma);
+                Console.WriteLine($"{num:#,#}");
             } else {
                 Console.WriteLine("入力された文字列は数値に変換できませんでした。");
             }
         }
-
-        private static string FormatNumberWithCommas(int number) {
-            return number.ToString("N0");
-        }
-
     }
 }

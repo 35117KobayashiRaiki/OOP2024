@@ -25,8 +25,7 @@ namespace Exercise03 {
         }
 
         private static void Exercise3_1(string text) {
-            if (text == String.Empty) 
-                Console.WriteLine(text.Count());
+            
         }
 
         private static void Exercise3_2(string text) {
