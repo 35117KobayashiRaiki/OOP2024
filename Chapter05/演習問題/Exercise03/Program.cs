@@ -35,11 +35,12 @@ namespace Exercise03 {
         }
 
         private static void Exercise3_3(string text) {
-            
+            var wordCount = text.Split(' ').Length;
+            Console.WriteLine("単語数:{0}", wordCount);
+                    
         }
 
         private static void Exercise3_4(string text) {
-            
         }
 
         private static void Exercise3_5(string text) {
