@@ -22,6 +22,9 @@ namespace Exercise03 {
             Console.WriteLine("-----");
 
             Exercise3_5(text);
+            Console.WriteLine("-----");
+
+            
         }
 
         private static void Exercise3_1(string text) {
@@ -48,7 +51,14 @@ namespace Exercise03 {
         }
 
         private static void Exercise3_5(string text) {
-            
+            var array = text.Split(' ').ToArray();
+            var sb = new StringBuilder();
+
+            foreach (var word in array) {
+                sb.Append(word);
+                sb.Append(' ');
+            }
+            Console.WriteLine(sb.ToString());
         }
     }
 }
