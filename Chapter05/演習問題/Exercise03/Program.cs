@@ -25,7 +25,8 @@ namespace Exercise03 {
         }
 
         private static void Exercise3_1(string text) {
-            
+            var spaceCount = text.Count(c => c == ' ');
+            Console.WriteLine("空白数:"+ spaceCount);
         }
 
         private static void Exercise3_2(string text) {
