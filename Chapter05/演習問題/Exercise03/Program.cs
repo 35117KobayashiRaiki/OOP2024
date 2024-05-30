@@ -41,6 +41,10 @@ namespace Exercise03 {
         }
 
         private static void Exercise3_4(string text) {
+            var moji = text.Split(' ').Where(s => s.Length <= 4).ToArray();
+            foreach (var item in moji) {
+                Console.WriteLine(item);
+            }
         }
 
         private static void Exercise3_5(string text) {
