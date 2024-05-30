@@ -24,12 +24,14 @@ namespace Exercise03 {
             Exercise3_5(text);
             Console.WriteLine("-----");
 
-            
+            Exercise3_6(text);
+            Console.WriteLine("-----");
+
         }
 
         private static void Exercise3_1(string text) {
             var spaceCount = text.Count(c => c == ' ');
-            Console.WriteLine("空白数:"+ spaceCount);
+            Console.WriteLine("空白数:" + spaceCount);
         }
 
         private static void Exercise3_2(string text) {
@@ -40,7 +42,7 @@ namespace Exercise03 {
         private static void Exercise3_3(string text) {
             var wordCount = text.Split(' ').Length;
             Console.WriteLine("単語数:{0}", wordCount);
-                    
+
         }
 
         private static void Exercise3_4(string text) {
@@ -59,6 +61,14 @@ namespace Exercise03 {
                 sb.Append(' ');
             }
             Console.WriteLine(sb.ToString());
+        }
+
+        private static void Exercise3_6(string text) {
+            var array = text.Split(new[] { ' ',',','-','_'}).ToArray();
+            foreach (var word in array) {
+                Console.WriteLine(word);
+            }
+            
         }
     }
 }
