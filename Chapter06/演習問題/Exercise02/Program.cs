@@ -47,15 +47,16 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_1(List<Book> books) {
-            var moji = books.Where(m => m.Title.Contains("ワンダフル・C#ライフ")).ToList();
+            var moji = books.Where(m => m.Title == "ワンダフル・C#ライフ").ToList();
             foreach (var mojis in moji){
                 Console.WriteLine("価格　　: " + mojis.Price + "円");
                 Console.WriteLine("ページ数: " + mojis.Pages + "ページ");
+                //Console.WriteLine("{0}:{1}円 {2}ページ", mojis.Price, mojis.Pages);
             }
         }
 
         private static void Exercise2_2(List<Book> books) {
-            var moji = books.Where(m => m.Title.Contains("C#")).Count();
+            var moji = books.Count(m => m.Title.Contains("C#"));
             Console.WriteLine(moji + "冊");
 
         }
@@ -68,7 +69,10 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_4(List<Book> books) {
-            
+            var price = books.Where(s => s.Price >= 4000);
+            foreach (var item in books) {
+                Console.WriteLine(item.Title);
+            }
         }
 
         private static void Exercise2_5(List<Book> books) {
