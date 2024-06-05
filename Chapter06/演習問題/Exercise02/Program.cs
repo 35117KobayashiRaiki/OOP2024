@@ -47,19 +47,23 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_1(List<Book> books) {
-
+            var moji = books.Where(m => m.Title.Contains("ワンダフル・C#ライフ")).ToList();
+            foreach (var mojis in moji){
+                Console.WriteLine("価格　　: " + mojis.Price + "円");
+                Console.WriteLine("ページ数: " + mojis.Pages + "ページ");
+            }
         }
 
         private static void Exercise2_2(List<Book> books) {
-
+            
         }
 
         private static void Exercise2_3(List<Book> books) {
-
+           
         }
 
         private static void Exercise2_4(List<Book> books) {
-
+            
         }
 
         private static void Exercise2_5(List<Book> books) {
