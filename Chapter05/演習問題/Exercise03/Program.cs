@@ -8,6 +8,7 @@ namespace Exercise03 {
     internal class Program {
         static void Main(string[] args) {
             var text = "Jackdaws love my big sphinx of quartz";
+            var text2 = "Jackdaws love my big sphinx-of_quartz";
 
             Exercise3_1(text);
             Console.WriteLine("-----");
@@ -63,10 +64,10 @@ namespace Exercise03 {
             Console.WriteLine(sb.ToString());
         }
 
-        private static void Exercise3_6(string text) {
-            var array = text.Split(new[] { ' ',',','-','_'}).ToArray();
+        private static void Exercise3_6(string text2) {
+            var array = text2.Split(new[] { ' ',',','-','_'}).ToArray();
             foreach (var word in array) {
-                Console.WriteLine(word);
+                Console.Write(word);
             }
             
         }
