@@ -30,7 +30,11 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_2(int[] numbers) {
-            
+            var num = numbers.Reverse().Take(2);
+            foreach (var nums in num) {
+                Console.WriteLine(nums);
+            }
+
         }
 
         private static void Exercise1_3(int[] numbers) {
