@@ -25,7 +25,8 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_1(int[] numbers) {
-            
+            var num = numbers.Max();
+            Console.WriteLine(num);
         }
 
         private static void Exercise1_2(int[] numbers) {
