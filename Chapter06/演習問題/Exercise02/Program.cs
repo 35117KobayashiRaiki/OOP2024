@@ -55,7 +55,9 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_2(List<Book> books) {
-            
+            var moji = books.Where(m => m.Title.Contains("C#")).Count();
+            Console.WriteLine(moji + "冊");
+
         }
 
         private static void Exercise2_3(List<Book> books) {
