@@ -35,10 +35,15 @@ namespace Exercise01 {
                 Console.WriteLine(nums);
             }
 
+            // var skip = numbers.Length - 2;
+            // foreach (var nums in numbers.Skip(skip)) {
+            //     Console.WriteLine(nums);
+            // }
+
         }
 
         private static void Exercise1_3(int[] numbers) {
-            var num = numbers.Select(n => n.ToString()).ToList();
+            var num = numbers.Select(n => n.ToString());
             foreach (var nums in num) {
                 Console.WriteLine(nums);
             }
@@ -50,7 +55,11 @@ namespace Exercise01 {
                 Console.WriteLine(nums);
             }
 
+            //foreach (var nums in numbers.OrderBy(x=>x).Take(3)) {
+            //    Console.WriteLine(nums);
+            //}
         }
+
 
         private static void Exercise1_5(int[] numbers) {
             var num = numbers.Distinct().Count(n => n > 10);
@@ -58,3 +67,5 @@ namespace Exercise01 {
         }
     }
 }
+
+
