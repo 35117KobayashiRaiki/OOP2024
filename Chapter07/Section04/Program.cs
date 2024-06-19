@@ -17,13 +17,28 @@ namespace Section04 {
             //7.2.3(Countの呼び出し)
             //上のAddメソッドで、2つのオブジェクトを追加しているので、読む込んだ単語数+2が、Countの値になる
             Console.WriteLine("現在の単語数: " + abbrs.Count);
+            Console.WriteLine();
+
+            //7.2.3(Removeメソッドの作成):結果は19　削除できません
+            if (abbrs.Remove("NPT")) 
+                Console.WriteLine(abbrs.Count);
+            if (abbrs.Remove("NPT"))
+                Console.WriteLine(abbrs.Count);
+            else
+                Console.WriteLine("削除できません");
+
+            //7.2.4
+            // IEnumerable<>を実装したので、LINQが使える。
+            foreach (var abbr in abbrs.Where(x => x.Key.Length == 3)){
+                Console.WriteLine("{0}={1}",abbr.Key,abbr.Value);
+            }
 
 
-            //7.2.3(Removeメソッドの作成)
-            
 
-                // インデクサの利用例
-                var names = new[] { "WHO", "FIFA", "NPT", };
+
+            Console.WriteLine();
+            // インデクサの利用例
+            var names = new[] { "WHO", "FIFA", "NPT", };
             foreach (var name in names) {
                 var fullname = abbrs[name];
                 if (fullname == null)
