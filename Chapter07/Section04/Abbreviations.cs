@@ -17,7 +17,14 @@ namespace Section04 {
         }
 
         //7.2.2(Removeメソッドの作成)
-        
+        public bool Remove(string abbr) {
+            if (_dict.ContainsKey(abbr)) {
+                _dict.Remove(abbr);
+                return true; 
+            } else {
+                return false; 
+            }
+        }
 
         // コンストラクタ
         public Abbreviations() {
