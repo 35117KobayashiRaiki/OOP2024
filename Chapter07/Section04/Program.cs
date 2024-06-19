@@ -16,15 +16,14 @@ namespace Section04 {
 
             //7.2.3(Countの呼び出し)
             //上のAddメソッドで、2つのオブジェクトを追加しているので、読む込んだ単語数+2が、Countの値になる
-            
+            Console.WriteLine("現在の単語数: " + abbrs.Count);
 
 
             //7.2.3(Removeメソッドの作成)
+            
 
-
-
-            // インデクサの利用例
-            var names = new[] { "WHO", "FIFA", "NPT", };
+                // インデクサの利用例
+                var names = new[] { "WHO", "FIFA", "NPT", };
             foreach (var name in names) {
                 var fullname = abbrs[name];
                 if (fullname == null)

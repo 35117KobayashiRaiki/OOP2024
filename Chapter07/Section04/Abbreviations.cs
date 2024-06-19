@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace Section04 {
     // List 7-19
     // 略語と対応する日本語を管理するクラス
-    class Abbreviations {
+    class Abbreviations : IEnumerable<KeyValuePair<string,string>> {
         private Dictionary<string, string> _dict = new Dictionary<string, string>();
 
         //7.2.1(Countプロパティの作成)
@@ -18,12 +19,7 @@ namespace Section04 {
 
         //7.2.2(Removeメソッドの作成)
         public bool Remove(string abbr) {
-            if (_dict.ContainsKey(abbr)) {
-                _dict.Remove(abbr);
-                return true; 
-            } else {
-                return false; 
-            }
+            return _dict.Remove(abbr);
         }
 
         // コンストラクタ
@@ -56,6 +52,14 @@ namespace Section04 {
                 if (item.Value.Contains(substring))
                     yield return item;
             }
+        }
+
+        public IEnumerator<KeyValuePair<string, string>> GetEnumerator() {
+            return ((IEnumerable<KeyValuePair<string, string>>)_dict).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return ((IEnumerable)_dict).GetEnumerator();
         }
     }
 }
