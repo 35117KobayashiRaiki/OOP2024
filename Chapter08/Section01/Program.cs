@@ -26,9 +26,9 @@ namespace Section01 {
             Console.WriteLine(str);
 
             //あなたは生まれてから今日で○○○○日目です
-            var today = DateTime.Today;
-            TimeSpan diff = today.Date - birthday.Date;
-            Console.WriteLine("あなたは生まれてから今日で" + diff.Days + "日目です");
+            //var today = DateTime.Today;
+            //TimeSpan diff = today.Date - birthday.Date;
+            //Console.WriteLine("あなたは生まれてから今日で" + diff.Days + "日目です");
             
             //switch (dayOfWeek) {
             //    case DayOfWeek.Sunday:
