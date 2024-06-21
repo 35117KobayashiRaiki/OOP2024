@@ -22,13 +22,13 @@ namespace Section01 {
             //あなたは平成○○年○月○日○曜日に生まれました。
             var culture = new CultureInfo("ja-JP");
             culture.DateTimeFormat.Calendar = new JapaneseCalendar();
-            var str = birthday.ToString("ggyy年M月d日",culture);  
-            Console.WriteLine(str);
+            var str = birthday.ToString("ggyy年M月d日dddd",culture);  
+            Console.WriteLine("あなたは" + str + "に生まれました");
 
             //あなたは生まれてから今日で○○○○日目です
-            //var today = DateTime.Today;
-            //TimeSpan diff = today.Date - birthday.Date;
-            //Console.WriteLine("あなたは生まれてから今日で" + diff.Days + "日目です");
+            var today = DateTime.Today;
+            TimeSpan diff = today - birthday;
+            Console.WriteLine("あなたは生まれてから今日で{0}日目です", diff.Days + 1);
             
             //switch (dayOfWeek) {
             //    case DayOfWeek.Sunday:
