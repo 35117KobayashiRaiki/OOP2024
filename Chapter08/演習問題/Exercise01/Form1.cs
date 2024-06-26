@@ -1,4 +1,7 @@
+using Microsoft.VisualBasic;
+using System;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace Exercise01 {
     public partial class Form1 : Form {
@@ -27,14 +30,27 @@ namespace Exercise01 {
 
         private void btEx8_2_Click(object sender, EventArgs e) {
 
+            var date = DateTime.Today;
+            foreach (var dayofweek in Enum.GetValues(typeof(DayOfWeek))){
+
+                var str = string.Format("{0:yyyy/MM/dd}の次週の{1}",date,(DayOfWeek)dayofweek);
+                tbDisp.Text += str + ":" + NextWeek(date,(DayOfWeek) dayofweek) + "\r\n";
+                //来週の日付を取得(戻り値を受け取る)
+                //var days = NextDay(date, (DayOfWeek)dayofweek);
+            }
+            
+            
         }
 
-        public static DateTime NextDay(DateTime date,DayOfWeek dayOfWeek) {
-            var days = (int)dayOfWeek - (int)(date.DayOfWeek);
+        //第一引数で指定した日付の翌週のインスタンスを返却する。ただし、第二引数で指定した翌週の曜日とする
+        public static DateTime NextWeek(DateTime date,DayOfWeek dayOfWeek) {
+            var nextweek = date.AddDays(7);
+            var days = (int)dayOfWeek - (int)date.DayOfWeek;
             if (days <= 0) 
                 days += 7;
+                
             return date.AddDays(days);
-            
+
         }
     }
 }
