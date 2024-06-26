@@ -32,13 +32,13 @@
             label5 = new Label();
             cbCarName = new ComboBox();
             groupBox1 = new GroupBox();
-            rbToyota = new RadioButton();
-            rbNissan = new RadioButton();
-            rbHonda = new RadioButton();
-            rbSubaru = new RadioButton();
-            rbImportedCar = new RadioButton();
-            tbReport = new TextBox();
             rbSnota = new RadioButton();
+            rbImportedCar = new RadioButton();
+            rbSubaru = new RadioButton();
+            rbHonda = new RadioButton();
+            rbNissan = new RadioButton();
+            rbToyota = new RadioButton();
+            tbReport = new TextBox();
             btPicOpen = new Button();
             btPicDelete = new Button();
             pbPicture = new PictureBox();
@@ -145,49 +145,16 @@
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             // 
-            // rbToyota
+            // rbSnota
             // 
-            rbToyota.AutoSize = true;
-            rbToyota.Location = new Point(6, 14);
-            rbToyota.Name = "rbToyota";
-            rbToyota.Size = new Size(50, 19);
-            rbToyota.TabIndex = 0;
-            rbToyota.TabStop = true;
-            rbToyota.Text = "トヨタ";
-            rbToyota.UseVisualStyleBackColor = true;
-            // 
-            // rbNissan
-            // 
-            rbNissan.AutoSize = true;
-            rbNissan.Location = new Point(62, 14);
-            rbNissan.Name = "rbNissan";
-            rbNissan.Size = new Size(49, 19);
-            rbNissan.TabIndex = 0;
-            rbNissan.TabStop = true;
-            rbNissan.Text = "日産";
-            rbNissan.UseVisualStyleBackColor = true;
-            // 
-            // rbHonda
-            // 
-            rbHonda.AutoSize = true;
-            rbHonda.Location = new Point(117, 14);
-            rbHonda.Name = "rbHonda";
-            rbHonda.Size = new Size(53, 19);
-            rbHonda.TabIndex = 0;
-            rbHonda.TabStop = true;
-            rbHonda.Text = "ホンダ";
-            rbHonda.UseVisualStyleBackColor = true;
-            // 
-            // rbSubaru
-            // 
-            rbSubaru.AutoSize = true;
-            rbSubaru.Location = new Point(176, 14);
-            rbSubaru.Name = "rbSubaru";
-            rbSubaru.Size = new Size(54, 19);
-            rbSubaru.TabIndex = 0;
-            rbSubaru.TabStop = true;
-            rbSubaru.Text = "スバル";
-            rbSubaru.UseVisualStyleBackColor = true;
+            rbSnota.AutoSize = true;
+            rbSnota.Location = new Point(299, 14);
+            rbSnota.Name = "rbSnota";
+            rbSnota.Size = new Size(56, 19);
+            rbSnota.TabIndex = 0;
+            rbSnota.TabStop = true;
+            rbSnota.Text = "その他";
+            rbSnota.UseVisualStyleBackColor = true;
             // 
             // rbImportedCar
             // 
@@ -200,6 +167,50 @@
             rbImportedCar.Text = "輸入車";
             rbImportedCar.UseVisualStyleBackColor = true;
             // 
+            // rbSubaru
+            // 
+            rbSubaru.AutoSize = true;
+            rbSubaru.Location = new Point(176, 14);
+            rbSubaru.Name = "rbSubaru";
+            rbSubaru.Size = new Size(54, 19);
+            rbSubaru.TabIndex = 0;
+            rbSubaru.TabStop = true;
+            rbSubaru.Text = "スバル";
+            rbSubaru.UseVisualStyleBackColor = true;
+            // 
+            // rbHonda
+            // 
+            rbHonda.AutoSize = true;
+            rbHonda.Location = new Point(117, 14);
+            rbHonda.Name = "rbHonda";
+            rbHonda.Size = new Size(53, 19);
+            rbHonda.TabIndex = 0;
+            rbHonda.TabStop = true;
+            rbHonda.Text = "ホンダ";
+            rbHonda.UseVisualStyleBackColor = true;
+            // 
+            // rbNissan
+            // 
+            rbNissan.AutoSize = true;
+            rbNissan.Location = new Point(62, 14);
+            rbNissan.Name = "rbNissan";
+            rbNissan.Size = new Size(49, 19);
+            rbNissan.TabIndex = 0;
+            rbNissan.TabStop = true;
+            rbNissan.Text = "日産";
+            rbNissan.UseVisualStyleBackColor = true;
+            // 
+            // rbToyota
+            // 
+            rbToyota.AutoSize = true;
+            rbToyota.Location = new Point(6, 14);
+            rbToyota.Name = "rbToyota";
+            rbToyota.Size = new Size(50, 19);
+            rbToyota.TabIndex = 0;
+            rbToyota.TabStop = true;
+            rbToyota.Text = "トヨタ";
+            rbToyota.UseVisualStyleBackColor = true;
+            // 
             // tbReport
             // 
             tbReport.Location = new Point(87, 246);
@@ -207,17 +218,6 @@
             tbReport.Name = "tbReport";
             tbReport.Size = new Size(366, 106);
             tbReport.TabIndex = 4;
-            // 
-            // rbSnota
-            // 
-            rbSnota.AutoSize = true;
-            rbSnota.Location = new Point(299, 14);
-            rbSnota.Name = "rbSnota";
-            rbSnota.Size = new Size(56, 19);
-            rbSnota.TabIndex = 0;
-            rbSnota.TabStop = true;
-            rbSnota.Text = "その他";
-            rbSnota.UseVisualStyleBackColor = true;
             // 
             // btPicOpen
             // 
@@ -265,6 +265,7 @@
             btAddReport.TabIndex = 5;
             btAddReport.Text = "追加";
             btAddReport.UseVisualStyleBackColor = true;
+            btAddReport.Click += btAddReport_Click;
             // 
             // btModifyReport
             // 
