@@ -67,8 +67,8 @@ namespace Exercise01 {
         }
 
         public TimeSpan Stop() {
-            TimeSpan elapsed = DateTime.Now - _time;
-            return elapsed;
+            return DateTime.Now - _time;
+            
         }
     }
 }
