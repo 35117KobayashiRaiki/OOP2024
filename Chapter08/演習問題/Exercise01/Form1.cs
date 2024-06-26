@@ -34,7 +34,8 @@ namespace Exercise01 {
             foreach (var dayofweek in Enum.GetValues(typeof(DayOfWeek))){
 
                 var str = string.Format("{0:yyyy/MM/dd}‚ÌŸT‚Ì{1}",date,(DayOfWeek)dayofweek);
-                tbDisp.Text += str + ":" + NextWeek(date,(DayOfWeek) dayofweek) + "\r\n";
+                var str1 = string.Format("{0:yyyy/MM/dd(ddd)}", NextWeek(date, (DayOfWeek)dayofweek));
+                tbDisp.Text += str + str1 + "\r\n";
                 //—ˆT‚Ì“ú•t‚ğæ“¾(–ß‚è’l‚ğó‚¯æ‚é)
                 //var days = NextDay(date, (DayOfWeek)dayofweek);
             }
@@ -46,9 +47,6 @@ namespace Exercise01 {
         public static DateTime NextWeek(DateTime date,DayOfWeek dayOfWeek) {
             var nextweek = date.AddDays(7);
             var days = (int)dayOfWeek - (int)date.DayOfWeek;
-            if (days <= 0) 
-                days += 7;
-                
             return date.AddDays(days);
 
         }
