@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarReportSystem {
     public class CarReport {
+        //列挙型
         public enum MakerGroup { 
             トヨタ,
             日産,
