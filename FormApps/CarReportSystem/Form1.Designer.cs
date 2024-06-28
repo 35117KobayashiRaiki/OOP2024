@@ -32,8 +32,8 @@
             label5 = new Label();
             cbCarName = new ComboBox();
             groupBox1 = new GroupBox();
-            rbSnota = new RadioButton();
-            rbImportedCar = new RadioButton();
+            rbOther = new RadioButton();
+            rbImport = new RadioButton();
             rbSubaru = new RadioButton();
             rbHonda = new RadioButton();
             rbNissan = new RadioButton();
@@ -133,8 +133,8 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(rbSnota);
-            groupBox1.Controls.Add(rbImportedCar);
+            groupBox1.Controls.Add(rbOther);
+            groupBox1.Controls.Add(rbImport);
             groupBox1.Controls.Add(rbSubaru);
             groupBox1.Controls.Add(rbHonda);
             groupBox1.Controls.Add(rbNissan);
@@ -145,27 +145,27 @@
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             // 
-            // rbSnota
+            // rbOther
             // 
-            rbSnota.AutoSize = true;
-            rbSnota.Location = new Point(299, 14);
-            rbSnota.Name = "rbSnota";
-            rbSnota.Size = new Size(56, 19);
-            rbSnota.TabIndex = 0;
-            rbSnota.TabStop = true;
-            rbSnota.Text = "その他";
-            rbSnota.UseVisualStyleBackColor = true;
+            rbOther.AutoSize = true;
+            rbOther.Location = new Point(299, 14);
+            rbOther.Name = "rbOther";
+            rbOther.Size = new Size(56, 19);
+            rbOther.TabIndex = 0;
+            rbOther.TabStop = true;
+            rbOther.Text = "その他";
+            rbOther.UseVisualStyleBackColor = true;
             // 
-            // rbImportedCar
+            // rbImport
             // 
-            rbImportedCar.AutoSize = true;
-            rbImportedCar.Location = new Point(236, 14);
-            rbImportedCar.Name = "rbImportedCar";
-            rbImportedCar.Size = new Size(61, 19);
-            rbImportedCar.TabIndex = 0;
-            rbImportedCar.TabStop = true;
-            rbImportedCar.Text = "輸入車";
-            rbImportedCar.UseVisualStyleBackColor = true;
+            rbImport.AutoSize = true;
+            rbImport.Location = new Point(236, 14);
+            rbImport.Name = "rbImport";
+            rbImport.Size = new Size(61, 19);
+            rbImport.TabIndex = 0;
+            rbImport.TabStop = true;
+            rbImport.Text = "輸入車";
+            rbImport.UseVisualStyleBackColor = true;
             // 
             // rbSubaru
             // 
@@ -372,8 +372,8 @@
         private Label label5;
         private ComboBox cbCarName;
         private GroupBox groupBox1;
-        private RadioButton rbSnota;
-        private RadioButton rbImportedCar;
+        private RadioButton rbOther;
+        private RadioButton rbImport;
         private RadioButton rbSubaru;
         private RadioButton rbHonda;
         private RadioButton rbNissan;

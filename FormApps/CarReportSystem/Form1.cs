@@ -35,7 +35,7 @@ namespace CarReportSystem {
                 return CarReport.MakerGroup.ホンダ;
             } else if (rbSubaru.Checked) {
                 return CarReport.MakerGroup.スバル;
-            } else if (rbImportedCar.Checked) {
+            } else if (rbImport.Checked) {
                 return CarReport.MakerGroup.輸入車;
             }
             return CarReport.MakerGroup.その他;
