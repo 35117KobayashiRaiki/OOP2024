@@ -26,7 +26,7 @@
             label1 = new Label();
             dtpDate = new DateTimePicker();
             label2 = new Label();
-            cbAuther = new ComboBox();
+            cbAuthor = new ComboBox();
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
@@ -50,6 +50,7 @@
             dgvCarReport = new DataGridView();
             btReportOpen = new Button();
             btReportSave = new Button();
+            ofdPicFileOpen = new OpenFileDialog();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbPicture).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvCarReport).BeginInit();
@@ -83,14 +84,14 @@
             label2.TabIndex = 0;
             label2.Text = "メーカー";
             // 
-            // cbAuther
+            // cbAuthor
             // 
-            cbAuther.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            cbAuther.FormattingEnabled = true;
-            cbAuther.Location = new Point(87, 79);
-            cbAuther.Name = "cbAuther";
-            cbAuther.Size = new Size(297, 33);
-            cbAuther.TabIndex = 2;
+            cbAuthor.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            cbAuthor.FormattingEnabled = true;
+            cbAuthor.Location = new Point(87, 79);
+            cbAuthor.Name = "cbAuthor";
+            cbAuthor.Size = new Size(297, 33);
+            cbAuthor.TabIndex = 2;
             // 
             // label3
             // 
@@ -227,6 +228,7 @@
             btPicOpen.TabIndex = 5;
             btPicOpen.Text = "開く…";
             btPicOpen.UseVisualStyleBackColor = true;
+            btPicOpen.Click += btPicOpen_Click;
             // 
             // btPicDelete
             // 
@@ -236,6 +238,7 @@
             btPicDelete.TabIndex = 5;
             btPicDelete.Text = "削除";
             btPicDelete.UseVisualStyleBackColor = true;
+            btPicDelete.Click += btPicDelete_Click;
             // 
             // pbPicture
             // 
@@ -243,6 +246,7 @@
             pbPicture.Location = new Point(483, 69);
             pbPicture.Name = "pbPicture";
             pbPicture.Size = new Size(277, 233);
+            pbPicture.SizeMode = PictureBoxSizeMode.Zoom;
             pbPicture.TabIndex = 6;
             pbPicture.TabStop = false;
             // 
@@ -276,6 +280,7 @@
             btModifyReport.TabIndex = 5;
             btModifyReport.Text = "修正";
             btModifyReport.UseVisualStyleBackColor = true;
+            btModifyReport.Click += btModifyReport_Click;
             // 
             // btDeleteReport
             // 
@@ -286,6 +291,7 @@
             btDeleteReport.TabIndex = 5;
             btDeleteReport.Text = "削除";
             btDeleteReport.UseVisualStyleBackColor = true;
+            btDeleteReport.Click += btDeleteReport_Click;
             // 
             // label7
             // 
@@ -301,9 +307,12 @@
             // 
             dgvCarReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCarReport.Location = new Point(87, 376);
+            dgvCarReport.MultiSelect = false;
             dgvCarReport.Name = "dgvCarReport";
+            dgvCarReport.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCarReport.Size = new Size(673, 173);
             dgvCarReport.TabIndex = 7;
+            dgvCarReport.Click += dgvCarReport_Click;
             // 
             // btReportOpen
             // 
@@ -325,11 +334,15 @@
             btReportSave.Text = "保存…";
             btReportSave.UseVisualStyleBackColor = true;
             // 
+            // ofdPicFileOpen
+            // 
+            ofdPicFileOpen.FileName = "openFileDialog1";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(796, 584);
+            ClientSize = new Size(799, 581);
             Controls.Add(dgvCarReport);
             Controls.Add(pbPicture);
             Controls.Add(btPicDelete);
@@ -342,7 +355,7 @@
             Controls.Add(tbReport);
             Controls.Add(groupBox1);
             Controls.Add(cbCarName);
-            Controls.Add(cbAuther);
+            Controls.Add(cbAuthor);
             Controls.Add(dtpDate);
             Controls.Add(label3);
             Controls.Add(label7);
@@ -353,6 +366,7 @@
             Controls.Add(label1);
             Name = "Form1";
             Text = "試乗レポート管理システム";
+            Load += Form1_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbPicture).EndInit();
@@ -366,7 +380,7 @@
         private Label label1;
         private DateTimePicker dtpDate;
         private Label label2;
-        private ComboBox cbAuther;
+        private ComboBox cbAuthor;
         private Label label3;
         private Label label4;
         private Label label5;
@@ -390,5 +404,6 @@
         private DataGridView dgvCarReport;
         private Button btReportOpen;
         private Button btReportSave;
+        private OpenFileDialog ofdPicFileOpen;
     }
 }
