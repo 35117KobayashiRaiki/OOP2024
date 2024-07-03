@@ -24,6 +24,22 @@ namespace CarReportSystem {
             };
             listCarReports.Add(carReport);
 
+            setCbAuthor(cbAuthor.Text);
+            setCbCarName(cbCarName.Text);
+        }
+
+        //記録者の履歴をコンボックスへ登録(重複なし)
+        private void setCbAuthor(string author) {
+            if (!cbAuthor.Items.Contains(author)) {
+                cbAuthor.Items.Add(author);
+            }
+        }
+
+        //車名の履歴をコンボックスへ登録(重複なし)
+        private void setCbCarName(string carName) {
+            if (!cbCarName.Items.Contains(carName)) {
+                cbCarName.Items.Add(carName);
+            }
         }
 
         //選択されているメーカー名を列挙型で返す
