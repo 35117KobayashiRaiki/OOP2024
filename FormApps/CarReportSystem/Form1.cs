@@ -136,8 +136,9 @@ namespace CarReportSystem {
         }
 
         private void dgvCarReport_Click(object sender, EventArgs e) {
-            if (dgvCarReport.Rows.Count == 0) return;
-
+            if ((dgvCarReport.Rows.Count == 0)
+                || (!dgvCarReport.CurrentRow.Selected)) return;
+           
             dtpDate.Value = (DateTime)dgvCarReport.CurrentRow.Cells["Date"].Value;
             cbAuthor.Text = (string)dgvCarReport.CurrentRow.Cells["Author"].Value;
             cbAuthor.Text = (string)dgvCarReport.CurrentRow.Cells["Author"].Value;
@@ -150,27 +151,18 @@ namespace CarReportSystem {
 
         //削除ボタン
         private void btDeleteReport_Click(object sender, EventArgs e) {
-            if (listCarReports.Count == 0) {
-                tslbMessage.Text = "エラーが発生しました";
-                return;
-            }
+            if ((dgvCarReport.CurrentRow == null)
+                || (!dgvCarReport.CurrentRow.Selected)) return;
 
             listCarReports.RemoveAt(dgvCarReport.CurrentRow.Index);
             dgvCarReport.ClearSelection();
             inputItemsAllClear();
-            //if (dgvCarReport.CurrentRow != null) {
-            //CarReport selectedReport = (CarReport)dgvCarReport.CurrentRow.DataBoundItem;
-            //listCarReports.Remove(selectedReport);
-
-            //}
         }
 
         //修正ボタン
         private void btModifyReport_Click(object sender, EventArgs e) {
-            if (listCarReports.Count == 0) {
-                tslbMessage.Text = "エラーが発生しました";
-                return;
-            }
+            if ((dgvCarReport.CurrentRow == null) 
+                || (!dgvCarReport.CurrentRow.Selected)) return;
 
             listCarReports[dgvCarReport.CurrentRow.Index].Date = dtpDate.Value;
             listCarReports[dgvCarReport.CurrentRow.Index].Author = cbAuthor.Text;
@@ -181,14 +173,6 @@ namespace CarReportSystem {
 
             dgvCarReport.Refresh(); //データグリッドビューの更新
 
-            //CarReport selectedReport = listCarReports[dgvCarReport.CurrentRow.Index];
-
-            //selectedReport.Date = dtpDate.Value;
-            //selectedReport.Author = cbAuthor.Text;
-            //selectedReport.Maker = GetRadioButtonMaker();
-            //selectedReport.CarName = cbCarName.Text;
-            //selectedReport.Report = tbReport.Text;
-            //selectedReport.Picture = pbPicture.Image;
         }
 
         //記録者テキストが編集されたら
