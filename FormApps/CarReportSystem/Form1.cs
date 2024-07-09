@@ -135,6 +135,10 @@ namespace CarReportSystem {
 
         private void Form1_Load(object sender, EventArgs e) {
             dgvCarReport.Columns["Picture"].Visible = false;  //画像表示しない
+
+            //交互に色を設定(データグリッドビュー)
+            dgvCarReport.RowsDefaultCellStyle.BackColor = Color.AliceBlue;
+            dgvCarReport.AlternatingRowsDefaultCellStyle.BackColor = Color.FloralWhite;
         }
 
         private void dgvCarReport_Click(object sender, EventArgs e) {
@@ -195,6 +199,11 @@ namespace CarReportSystem {
 
         //保存ボタン
         private void btReportSave_Click(object sender, EventArgs e) {
+            ReportSaveFile();
+        }
+
+        //ファイルセーブ処理
+        private void ReportSaveFile() {
             if (sfdReportFileSave.ShowDialog() == DialogResult.OK) {
                 try {
                     //バイナリ形式でシリアル化
@@ -203,18 +212,23 @@ namespace CarReportSystem {
 #pragma warning restore SYSLIB0011 // 型またはメンバーが旧型式です
                     using (FileStream fs = File.Open(sfdReportFileSave.FileName, FileMode.Create)) {
                         bf.Serialize(fs, listCarReports);
+                        tslbMessage.Text = "";
 
                     }
                 }
                 catch (Exception) {
-
-                    throw;
+                    tslbMessage.Text = "書き込みエラー";
                 }
             }
         }
 
-        //保存したデータを開く
+        //開くボタンイベント
         private void btReportOpen_Click(object sender, EventArgs e) {
+            ReportOpenFile();
+        }
+
+        //ファイルオープン処理
+        private void ReportOpenFile() {
             if (ofdReportFileOpen.ShowDialog() == DialogResult.OK) {
                 try {
                     //バイナリ形式でシリアル化
@@ -229,11 +243,11 @@ namespace CarReportSystem {
                             setCbAuthor(report.Author);
                             setCbCarName(report.CarName);
                         }
+                        tslbMessage.Text = "";
                     }
                 }
-                catch (Exception) {
-
-                    throw;
+                catch (Exception ex) {
+                    tslbMessage.Text = "ファイル形式が違います";
                 }
                 dgvCarReport.ClearSelection();  //セレクションを外す
             }
@@ -242,6 +256,21 @@ namespace CarReportSystem {
         private void btClear_Click(object sender, EventArgs e) {
             inputItemsAllClear();           //入力項目をすべてクリア
             dgvCarReport.ClearSelection();  //セレクションを外す
+        }
+
+        private void 開くToolStripMenuItem_Click(object sender, EventArgs e) {
+            ReportOpenFile();   //ファイルオープン処理
+        }
+
+        private void 保存ToolStripMenuItem_Click(object sender, EventArgs e) {
+            ReportSaveFile();   //ファイルセーブ処理
+        }
+
+        private void 終了ToolStripMenuItem_Click(object sender, EventArgs e) {
+            DialogResult result = MessageBox.Show("本当に終了しますか？","終了確認",MessageBoxButtons.YesNo);
+            if(result == DialogResult.Yes) {
+                this.Close();
+            }
         }
     }
 }
