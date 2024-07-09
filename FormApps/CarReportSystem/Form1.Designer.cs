@@ -53,6 +53,9 @@
             ofdPicFileOpen = new OpenFileDialog();
             ssMessageArea = new StatusStrip();
             tslbMessage = new ToolStripStatusLabel();
+            ofdReportFileOpen = new OpenFileDialog();
+            sfdReportFileSave = new SaveFileDialog();
+            btClear = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbPicture).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvCarReport).BeginInit();
@@ -326,6 +329,7 @@
             btReportOpen.TabIndex = 5;
             btReportOpen.Text = "開く…";
             btReportOpen.UseVisualStyleBackColor = true;
+            btReportOpen.Click += btReportOpen_Click;
             // 
             // btReportSave
             // 
@@ -336,6 +340,7 @@
             btReportSave.TabIndex = 5;
             btReportSave.Text = "保存…";
             btReportSave.UseVisualStyleBackColor = true;
+            btReportSave.Click += btReportSave_Click;
             // 
             // ofdPicFileOpen
             // 
@@ -356,11 +361,27 @@
             tslbMessage.Name = "tslbMessage";
             tslbMessage.Size = new Size(0, 17);
             // 
+            // ofdReportFileOpen
+            // 
+            ofdReportFileOpen.FileName = "openFileDialog1";
+            // 
+            // btClear
+            // 
+            btClear.Font = new Font("Yu Gothic UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            btClear.Location = new Point(389, 28);
+            btClear.Name = "btClear";
+            btClear.Size = new Size(88, 37);
+            btClear.TabIndex = 9;
+            btClear.Text = "クリア";
+            btClear.UseVisualStyleBackColor = true;
+            btClear.Click += btClear_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(799, 619);
+            Controls.Add(btClear);
             Controls.Add(ssMessageArea);
             Controls.Add(dgvCarReport);
             Controls.Add(pbPicture);
@@ -430,5 +451,8 @@
         private OpenFileDialog ofdPicFileOpen;
         private StatusStrip ssMessageArea;
         private ToolStripStatusLabel tslbMessage;
+        private OpenFileDialog ofdReportFileOpen;
+        private SaveFileDialog sfdReportFileSave;
+        private Button btClear;
     }
 }
