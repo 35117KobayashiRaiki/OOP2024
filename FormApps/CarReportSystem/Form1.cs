@@ -34,20 +34,20 @@ namespace CarReportSystem {
             setCbAuthor(cbAuthor.Text);
             setCbCarName(cbCarName.Text);
             dgvCarReport.ClearSelection();  //セレクションを外す
-            //inputItemsAllClear();         //入力項目をすべてクリア
-            btClear_Click(sender, e);       //入力項目をすべてクリア
+            inputItemsAllClear();         //入力項目をすべてクリア
+            //btClear_Click(sender, e);       //入力項目をすべてクリア
 
         }
 
         //入力項目をすべてクリア
-        //private void inputItemsAllClear() {
-        //    dtpDate.Value = DateTime.Now;
-        //    cbAuthor.Text = "";
-        //    cbCarName.Text = "";
-        //    setRadioButtoMaker(CarReport.MakerGroup.なし);
-        //    tbReport.Text = "";
-        //    pbPicture.Image = null;
-        //}
+        private void inputItemsAllClear() {
+            dtpDate.Value = DateTime.Now;
+            cbAuthor.Text = "";
+            cbCarName.Text = "";
+            setRadioButtoMaker(CarReport.MakerGroup.なし);
+            tbReport.Text = "";
+            pbPicture.Image = null;
+        }
 
         //ラジオボタンのクリア
         private void rbAllClear() {
@@ -158,7 +158,8 @@ namespace CarReportSystem {
 
             listCarReports.RemoveAt(dgvCarReport.CurrentRow.Index);
             dgvCarReport.ClearSelection();
-            btClear_Click(sender, e);
+            inputItemsAllClear();
+            //btClear_Click(sender, e);
         }
 
         //修正ボタン
@@ -223,7 +224,6 @@ namespace CarReportSystem {
                     using (FileStream fs = File.Open(ofdReportFileOpen.FileName, FileMode.Open, FileAccess.Read)) {
                         listCarReports = (BindingList<CarReport>)bf.Deserialize(fs);
                         dgvCarReport.DataSource = listCarReports;
-                        dgvCarReport.ClearSelection();
 
                         foreach (CarReport report in listCarReports) {
                             setCbAuthor(report.Author);
@@ -235,18 +235,13 @@ namespace CarReportSystem {
 
                     throw;
                 }
-
-
+                dgvCarReport.ClearSelection();  //セレクションを外す
             }
         }
 
         private void btClear_Click(object sender, EventArgs e) {
-            dtpDate.Value = DateTime.Now;
-            cbAuthor.Text = "";
-            cbCarName.Text = "";
-            setRadioButtoMaker(CarReport.MakerGroup.なし);
-            tbReport.Text = "";
-            pbPicture.Image = null;
+            inputItemsAllClear();           //入力項目をすべてクリア
+            dgvCarReport.ClearSelection();  //セレクションを外す
         }
     }
 }
