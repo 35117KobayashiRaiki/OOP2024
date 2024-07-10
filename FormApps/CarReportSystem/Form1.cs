@@ -274,9 +274,9 @@ namespace CarReportSystem {
         }
 
         private void êFê›íËToolStripMenuItem_Click(object sender, EventArgs e) {
-            var cd = new ColorDialog();
-            if (cd.ShowDialog() == DialogResult.OK) {
-                this.BackColor = cd.Color;
+            //var cd = new ColorDialog();
+            if (cdColor.ShowDialog() == DialogResult.OK) {
+                this.BackColor = cdColor.Color;
             }
         }
     }
