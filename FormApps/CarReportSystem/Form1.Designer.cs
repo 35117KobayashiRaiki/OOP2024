@@ -165,7 +165,7 @@
             // 
             rbOther.AutoSize = true;
             rbOther.Checked = true;
-            rbOther.Location = new Point(304, 19);
+            rbOther.Location = new Point(304, 14);
             rbOther.Name = "rbOther";
             rbOther.Size = new Size(56, 19);
             rbOther.TabIndex = 0;
@@ -176,7 +176,7 @@
             // rbImport
             // 
             rbImport.AutoSize = true;
-            rbImport.Location = new Point(241, 19);
+            rbImport.Location = new Point(241, 14);
             rbImport.Name = "rbImport";
             rbImport.Size = new Size(61, 19);
             rbImport.TabIndex = 0;
@@ -186,7 +186,7 @@
             // rbSubaru
             // 
             rbSubaru.AutoSize = true;
-            rbSubaru.Location = new Point(181, 19);
+            rbSubaru.Location = new Point(181, 14);
             rbSubaru.Name = "rbSubaru";
             rbSubaru.Size = new Size(54, 19);
             rbSubaru.TabIndex = 0;
@@ -196,7 +196,7 @@
             // rbHonda
             // 
             rbHonda.AutoSize = true;
-            rbHonda.Location = new Point(122, 19);
+            rbHonda.Location = new Point(122, 14);
             rbHonda.Name = "rbHonda";
             rbHonda.Size = new Size(53, 19);
             rbHonda.TabIndex = 0;
@@ -206,7 +206,7 @@
             // rbNissan
             // 
             rbNissan.AutoSize = true;
-            rbNissan.Location = new Point(67, 19);
+            rbNissan.Location = new Point(67, 14);
             rbNissan.Name = "rbNissan";
             rbNissan.Size = new Size(49, 19);
             rbNissan.TabIndex = 0;
@@ -216,7 +216,7 @@
             // rbToyota
             // 
             rbToyota.AutoSize = true;
-            rbToyota.Location = new Point(11, 19);
+            rbToyota.Location = new Point(11, 14);
             rbToyota.Name = "rbToyota";
             rbToyota.Size = new Size(50, 19);
             rbToyota.TabIndex = 0;
@@ -255,7 +255,7 @@
             // 
             // pbPicture
             // 
-            pbPicture.BackColor = Color.FromArgb(192, 255, 255);
+            pbPicture.BackColor = Color.Gray;
             pbPicture.Location = new Point(491, 104);
             pbPicture.Name = "pbPicture";
             pbPicture.Size = new Size(277, 233);
