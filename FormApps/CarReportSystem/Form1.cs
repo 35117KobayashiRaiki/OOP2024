@@ -1,13 +1,19 @@
 using System.ComponentModel;
 using System.Data;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace CarReportSystem {
     public partial class Form1 : Form {
 
         //カーレポート管理用リスト
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
+
+        //①設定クラスのインスタンス作成
+        Settings settings = new Settings();
 
         //コンストラクタ
         public Form1() {
@@ -140,6 +146,10 @@ namespace CarReportSystem {
             //交互に色を設定(データグリッドビュー)
             dgvCarReport.RowsDefaultCellStyle.BackColor = Color.AliceBlue;
             dgvCarReport.AlternatingRowsDefaultCellStyle.BackColor = Color.FloralWhite;
+
+            //設定ファイルを逆シリアル化して背景を設定
+            
+        
         }
 
         private void dgvCarReport_Click(object sender, EventArgs e) {
@@ -274,9 +284,24 @@ namespace CarReportSystem {
         }
 
         private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
-            //var cd = new ColorDialog();
             if (cdColor.ShowDialog() == DialogResult.OK) {
                 this.BackColor = cdColor.Color;
+                //②インスタンスに色情報をセット(ARGB形式に変換が必要)←色の設定時
+                settings.MainFormColor = BackColor.ToArgb();
+            }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+            //③設定ファイルのシリアル化
+            try {
+                using (var writer = XmlWriter.Create("settings.xml")) {
+                    var serializer = new XmlSerializer(settings.GetType());
+                    serializer.Serialize(writer, settings);
+                }
+            }
+            catch (Exception) {
+                MessageBox.Show("設定ファイル読み込みエラー");
+               
             }
         }
     }
