@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Data;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows.Forms;
 
 namespace CarReportSystem {
     public partial class Form1 : Form {
@@ -269,6 +270,13 @@ namespace CarReportSystem {
         private void 終了ToolStripMenuItem_Click(object sender, EventArgs e) {
             if (MessageBox.Show("本当に終了しますか？", "終了確認", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                 this.Close();
+            }
+        }
+
+        private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
+            var cd = new ColorDialog();
+            if (cd.ShowDialog() == DialogResult.OK) {
+                this.BackColor = cd.Color;
             }
         }
     }
