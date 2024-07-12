@@ -12,7 +12,7 @@ namespace CarReportSystem {
         //カーレポート管理用リスト
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
 
-        //①設定クラスのインスタンス作成
+        //設定クラスのインスタンス作成
         Settings settings = new Settings();
 
         //コンストラクタ
@@ -147,9 +147,23 @@ namespace CarReportSystem {
             dgvCarReport.RowsDefaultCellStyle.BackColor = Color.AliceBlue;
             dgvCarReport.AlternatingRowsDefaultCellStyle.BackColor = Color.FloralWhite;
 
-            //設定ファイルを逆シリアル化して背景を設定
-            
-        
+            if (File.Exists("settings.xml")) {
+                //設定ファイルを逆シリアル化して背景を設定
+                try {
+                    using (var reader = XmlReader.Create("settings.xml")) {
+                        var serializer = new XmlSerializer(typeof(Settings));
+                        var settings = serializer.Deserialize(reader) as Settings;
+                        BackColor = Color.FromArgb(settings.MainFormColor);
+                        settings.MainFormColor = BackColor.ToArgb();
+                    }
+                }
+                catch (Exception) {
+                    
+                }
+            }
+            else{
+                tslbMessage.Text = "色情報ファイルがありません";
+            }
         }
 
         private void dgvCarReport_Click(object sender, EventArgs e) {
@@ -279,20 +293,19 @@ namespace CarReportSystem {
 
         private void 終了ToolStripMenuItem_Click(object sender, EventArgs e) {
             if (MessageBox.Show("本当に終了しますか？", "終了確認", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                this.Close();
+                Application.Exit();
             }
         }
 
         private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
             if (cdColor.ShowDialog() == DialogResult.OK) {
-                this.BackColor = cdColor.Color;
-                //②インスタンスに色情報をセット(ARGB形式に変換が必要)←色の設定時
-                settings.MainFormColor = BackColor.ToArgb();
+                BackColor = cdColor.Color;      //背景色設定
+                settings.MainFormColor = cdColor.Color.ToArgb();    //背景色保存
             }
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
-            //③設定ファイルのシリアル化
+            //設定ファイルのシリアル化
             try {
                 using (var writer = XmlWriter.Create("settings.xml")) {
                     var serializer = new XmlSerializer(settings.GetType());
@@ -300,7 +313,7 @@ namespace CarReportSystem {
                 }
             }
             catch (Exception) {
-                MessageBox.Show("設定ファイル読み込みエラー");
+                MessageBox.Show("設定ファイル書き込みエラー");
                
             }
         }
