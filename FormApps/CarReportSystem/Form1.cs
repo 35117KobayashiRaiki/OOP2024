@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Data;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
@@ -158,10 +159,9 @@ namespace CarReportSystem {
                     }
                 }
                 catch (Exception) {
-                    
+
                 }
-            }
-            else{
+            } else {
                 tslbMessage.Text = "色情報ファイルがありません";
             }
         }
@@ -314,8 +314,14 @@ namespace CarReportSystem {
             }
             catch (Exception) {
                 MessageBox.Show("設定ファイル書き込みエラー");
-               
+
             }
+        }
+
+        private void このアプリについてToolStripMenuItem_Click(object sender, EventArgs e) {
+            var fmversion = new fmVersion();
+            
+            fmversion.ShowDialog();
         }
     }
 }
