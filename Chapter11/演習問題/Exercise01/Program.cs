@@ -41,11 +41,21 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_2(string file) {
-           
+            var xdoc = XDocument.Load(file);
+
+            var sports = xdoc.Root.Elements("ballsport")
+                                         .OrderBy(sport => (int)sport.Element("firstplayed"));
+
+            foreach (var sport in sports) {
+                var kanjiName = sport.Element("name").Attribute("kanji").Value;
+                Console.WriteLine(kanjiName);
+            }
         }
 
         private static void Exercise1_3(string file) {
             
+
+
         }
 
         private static void Exercise1_4(string file, string newfile) {
