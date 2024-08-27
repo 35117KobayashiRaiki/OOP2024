@@ -32,7 +32,29 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_2(string outfile) {
-            
+            var employee = new Employee[] {
+                new Employee {
+                    Id = 123,
+                    Name = "出井 孝行",
+                    HireDate = new DateTime(2004, 5, 10)
+                },
+                new Employee {
+                    Id = 123,
+                    Name = "大橋 孝仁",
+                    HireDate = new DateTime(2004, 12, 1)
+                },
+            };
+
+            var settings = new XmlWriterSettings {
+                Encoding = new UTF8Encoding(false),
+                Indent = true,
+                IndentChars = " ",
+            };
+
+            using (var writer = XmlWriter.Create("employee.xml", settings)) {
+                var serializer = new DataContractSerializer(employee.GetType());
+                serializer.WriteObject(writer, employee);
+            }
         }
 
         private static void Exercise1_3(string v) {
