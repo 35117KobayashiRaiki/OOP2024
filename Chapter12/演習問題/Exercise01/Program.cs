@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -74,7 +78,31 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_4(string filePath) {
-            
+            //①JsonSerializerを使ってシリアル化をする
+
+            //②シリアル化したものをファイル出力する
+            var emps = new Employee[] {
+                new Employee {
+                    Id = 123,
+                    Name = "出井 孝行",
+                    HireDate = new DateTime(2004, 5, 10)
+                },
+                new Employee {
+                    Id = 139,
+                    Name = "大橋 孝仁",
+                    HireDate = new DateTime(2004, 12, 1)
+                },
+            };
+
+            var options = new JsonSerializerOptions {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+                WriteIndented = true
+            };
+
+            using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write)) {
+                JsonSerializer.Serialize(stream, emps, options);
+
+            }
         }
     }
 }
