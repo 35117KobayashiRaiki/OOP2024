@@ -96,7 +96,7 @@ namespace Exercise01 {
 
             var options = new JsonSerializerOptions {
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
-                WriteIndented = true
+                WriteIndented = true,
             };
 
             using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write)) {
