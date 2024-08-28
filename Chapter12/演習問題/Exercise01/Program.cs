@@ -15,16 +15,16 @@ using System.Xml.Serialization;
 namespace Exercise01 {
     internal class Program {
         static void Main(string[] args) {
-            Exercise1_1("employee.xml");
+            //Exercise1_1("employee.xml");
 
             // これは確認用
-            Console.WriteLine(File.ReadAllText("employee.xml"));
-            Console.WriteLine();
+            //Console.WriteLine(File.ReadAllText("employee.xml"));
+            //Console.WriteLine();
 
-            Exercise1_2("employees.xml");
-            Exercise1_3("employees.xml");
-            Console.WriteLine(File.ReadAllText("employee.xml"));
-            Console.WriteLine();
+            //Exercise1_2("employees.xml");
+            //Exercise1_3("employees.xml");
+            //Console.WriteLine(File.ReadAllText("employee.xml"));
+            //Console.WriteLine();
 
             Exercise1_4("employees.json");
 
@@ -94,12 +94,15 @@ namespace Exercise01 {
                 },
             };
 
-            var options = new JsonSerializerOptions {
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
-                WriteIndented = true,
-            };
+            
 
             using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write)) {
+                var options = new JsonSerializerOptions {
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+                    WriteIndented = true,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                };
+
                 JsonSerializer.Serialize(stream, emps, options);
 
             }
