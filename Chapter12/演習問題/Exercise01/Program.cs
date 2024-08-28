@@ -100,7 +100,7 @@ namespace Exercise01 {
                 var options = new JsonSerializerOptions {
                     Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
                     WriteIndented = true,
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,  //キー名のカスタム
                 };
 
                 JsonSerializer.Serialize(stream, emps, options);
