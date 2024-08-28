@@ -68,7 +68,7 @@ namespace Exercise01 {
                 var serializer = new DataContractSerializer(typeof(Employee[]));
                 var emps = serializer.ReadObject(reader) as Employee[];
                 foreach (var emp in emps) {
-                    Console.WriteLine(emp);
+                    Console.WriteLine("{0}{1}{2}",emp.Id,emp.Name,emp.HireDate);
                 }
             }
         }
