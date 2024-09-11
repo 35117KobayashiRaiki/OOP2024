@@ -86,11 +86,11 @@
             // 
             // btRegistration
             // 
-            this.btRegistration.Location = new System.Drawing.Point(746, 55);
+            this.btRegistration.Location = new System.Drawing.Point(746, 59);
             this.btRegistration.Name = "btRegistration";
-            this.btRegistration.Size = new System.Drawing.Size(75, 23);
+            this.btRegistration.Size = new System.Drawing.Size(106, 55);
             this.btRegistration.TabIndex = 6;
-            this.btRegistration.Text = "登録";
+            this.btRegistration.Text = "URLと名称登録";
             this.btRegistration.UseVisualStyleBackColor = true;
             this.btRegistration.Click += new System.EventHandler(this.btRegistration_Click);
             // 
