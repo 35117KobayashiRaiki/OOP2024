@@ -48,18 +48,25 @@ namespace RssReader {
         }
 
         private void btGet_Click(object sender, EventArgs e) {
-            // コンボボックスに初期 URL を追加する処理
-            if (cbRssUrl.Items.Count == 0) {
-                InitializeRssUrls();
-            }
+            // コンボボックスの選択が履歴からのものであれば、その URL を使用
+            if (cbRssUrl.SelectedItem is ComboBoxItem selectedItem) {
+                // 履歴の URL またはトピック名の選択を処理
+                string urlToLoad = selectedItem.Url;
 
-            string enteredText = cbRssUrl.Text;
-            string urlToLoad = rssUrls.Values.FirstOrDefault(url => url.Equals(enteredText, StringComparison.OrdinalIgnoreCase));
+                // トピック名から URL を取得する場合
+                if (rssUrls.ContainsKey(selectedItem.Name)) {
+                    urlToLoad = rssUrls[selectedItem.Name];
+                } else if (Uri.IsWellFormedUriString(urlToLoad, UriKind.Absolute)) {
+                    // 直接 URL が指定された場合
+                    // ここでの URL の検証は省略
+                } else {
+                    // 無効な URL または名称の場合
+                    MessageBox.Show("正しいURLまたは名称を入力してください。", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            if (!string.IsNullOrEmpty(urlToLoad)) {
+                // URL を読み込み、タイトルを表示
                 LoadRssFeed(urlToLoad);
-            } else {
-                MessageBox.Show("正しいURLまたは名称を入力してください。", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -112,10 +119,7 @@ namespace RssReader {
         }
 
         private void cbRssUrl_SelectedIndexChanged(object sender, EventArgs e) {
-            // 選択されたアイテムに基づいてRSSフィードを取得
-            if (cbRssUrl.SelectedItem is ComboBoxItem selectedItem) {
-                LoadRssFeed(selectedItem.Url);
-            }
+            
         }
 
         private void cbRssUrl_TextChanged(object sender, EventArgs e) {
