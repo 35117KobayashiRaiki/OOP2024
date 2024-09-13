@@ -13,7 +13,8 @@ namespace SampleEntityFramework {
             //AddBooks();
             //AddAuthors();
             //InsertBooks();
-            DisplayAllBooks();
+            //DisplayAllBooks();
+            DisplayAllBooks2();
         }
 
         //データの削除
@@ -36,6 +37,7 @@ namespace SampleEntityFramework {
             }
         }
 
+        //書籍の追加
         private static void AddBooks() {
             using (var db = new BooksDbContext()) {
                 var author1 = db.Authors.Single(a => a.Name == "与謝野晶子");
@@ -52,10 +54,39 @@ namespace SampleEntityFramework {
                     Author = author2,
                 };
                 db.Books.Add(book2);
+                var author3 = db.Authors.Single(a => a.Name == "夏目漱石");
+                var book3 = new Book {
+                    Title = "こころ",
+                    PublishedYear = 1991,
+                    Author = author3,
+                };
+                db.Books.Add(book3);
+                var author4 = db.Authors.Single(a => a.Name == "川端康成");
+                var book4 = new Book {
+                    Title = "伊豆の踊子",
+                    PublishedYear = 2003,
+                    Author = author4,
+                };
+                db.Books.Add(book4);
+                var author5 = db.Authors.Single(a => a.Name == "菊池寛");
+                var book5 = new Book {
+                    Title = "真珠夫人",
+                    PublishedYear = 2002,
+                    Author = author5,
+                };
+                db.Books.Add(book5);
+                var author6 = db.Authors.Single(a => a.Name == "宮沢賢治");
+                var book6 = new Book {
+                    Title = "注文の多い料理店",
+                    PublishedYear = 2000,
+                    Author = author6,
+                };
+                db.Books.Add(book6);
                 db.SaveChanges();
             }
         }
 
+        //著者の追加
         private static void AddAuthors() {
             using (var db = new BooksDbContext()) {
                 var author1 = new Author {
@@ -70,6 +101,18 @@ namespace SampleEntityFramework {
                     Name = "宮沢賢治",
                 };
                 db.Authors.Add(author2);
+                var author3 = new Author {
+                    Birthday = new DateTime(1888, 12, 26),
+                    Gender = "M",
+                    Name = "菊池寛",
+                };
+                db.Authors.Add(author3);
+                var author4 = new Author {
+                    Birthday = new DateTime(1899, 6, 14),
+                    Gender = "M",
+                    Name = "川端康成",
+                };
+                db.Authors.Add(author4);
                 db.SaveChanges();
             }
         }
@@ -102,6 +145,7 @@ namespace SampleEntityFramework {
             }
         }
 
+        //テーブルの全表示
         static void DisplayAllBooks() {
             var books = GetBooks();
             foreach (var book in books) {
@@ -110,6 +154,19 @@ namespace SampleEntityFramework {
             Console.ReadLine();
         }
 
+        //13.1.2
+        static void DisplayAllBooks2() {
+            using(var db = new BooksDbContext()) {
+                foreach (var book in db.Books.ToList()){
+                    Console.WriteLine("{0}{1}{2}({3:yyyy/MM/dd})",
+                        book.Title, book.PublishedYear,
+                        book.Author.Name,book.Author.Birthday
+                    );
+                }
+            }
+        }
+
+        //データの取得
         static IEnumerable<Book> GetBooks() {
             using(var db = new BooksDbContext()) {
                 return db.Books
