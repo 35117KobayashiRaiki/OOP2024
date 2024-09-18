@@ -14,7 +14,30 @@ namespace SampleEntityFramework {
             //AddAuthors();
             //InsertBooks();
             //DisplayAllBooks();
-            DisplayAllBooks2();
+            //DisplayAllBooks2();
+
+            DisplayAllBooks3();
+
+            Console.WriteLine();
+            Console.WriteLine("# 1.4");
+            Exercise1_4();
+
+            Console.WriteLine();
+            Console.WriteLine("# 1.5");
+            Exercise1_5();
+
+            Console.ReadLine(); //コンソールアプリだが F5 でデバッグ実行したいために記述
+
+
+
+        }
+
+        private static void Exercise1_4() {
+            
+        }
+
+        private static void Exercise1_5() {
+            
         }
 
         //データの削除
@@ -165,6 +188,19 @@ namespace SampleEntityFramework {
                 }
             }
         }
+
+        //13.1.3
+        static void DisplayAllBooks3() {
+            using (var db = new BooksDbContext()) {
+                var book = db.Books
+                             .Where(b => b.Title.Length == db.Books.Max(x => x.Title.Length));
+
+                foreach (var item in book) {
+                    Console.WriteLine(item.Title);
+                }
+            }
+        }
+
 
         //データの取得
         static IEnumerable<Book> GetBooks() {
