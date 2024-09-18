@@ -74,8 +74,7 @@
             this.cbRssUrl.Name = "cbRssUrl";
             this.cbRssUrl.Size = new System.Drawing.Size(551, 20);
             this.cbRssUrl.TabIndex = 4;
-            this.cbRssUrl.SelectedIndexChanged += new System.EventHandler(this.cbRssUrl_SelectedIndexChanged);
-            this.cbRssUrl.TextChanged += new System.EventHandler(this.cbRssUrl_TextChanged);
+            
             // 
             // tbRssUrl
             // 

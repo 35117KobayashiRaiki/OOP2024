@@ -1,184 +1,163 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Linq;
-using Microsoft.Web.WebView2.WinForms;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.ComponentModel;
+//using System.Data;
+//using System.Drawing;
+//using System.Linq;
+//using System.Net;
+//using System.Net.NetworkInformation;
+//using System.Text;
+//using System.Threading.Tasks;
+//using System.Windows.Forms;
+//using System.Xml.Linq;
+//using Microsoft.Web.WebView2.WinForms;
 
 
-namespace RssReader {
+//namespace RssReader {
 
-    public partial class Form1 : Form {
-        List<ItemData> items;
+//    public partial class Form1 : Form {
+//        private List<ItemData> items;
 
-        // RSSフィードのURLを定義します。
-        private readonly Dictionary<string, string> rssUrls = new Dictionary<string, string> {
-            { "主要", "https://news.yahoo.co.jp/rss/topics/top-picks.xml" },
-            { "経済", "https://news.yahoo.co.jp/rss/topics/business.xml" },
-            { "IT", "https://news.yahoo.co.jp/rss/topics/it.xml" },
-            { "国内", "https://news.yahoo.co.jp/rss/topics/domestic.xml" },
-            { "エンタメ", "https://news.yahoo.co.jp/rss/topics/entertainment.xml" },
-            { "科学", "https://news.yahoo.co.jp/rss/topics/science.xml" },
-            { "国際", "https://news.yahoo.co.jp/rss/topics/world.xml" },
-            { "スポーツ", "https://news.yahoo.co.jp/rss/topics/sports.xml" },
-            { "地域", "https://news.yahoo.co.jp/rss/topics/local.xml" }
-        };
+//        // RSSフィードのURLを定義します。
+//        private readonly Dictionary<string, string> rssUrls = new Dictionary<string, string> {
+//            { "主要", "https://news.yahoo.co.jp/rss/topics/top-picks.xml" },
+//            { "経済", "https://news.yahoo.co.jp/rss/topics/business.xml" },
+//            { "IT", "https://news.yahoo.co.jp/rss/topics/it.xml" },
+//            { "国内", "https://news.yahoo.co.jp/rss/topics/domestic.xml" },
+//            { "エンタメ", "https://news.yahoo.co.jp/rss/topics/entertainment.xml" },
+//            { "科学", "https://news.yahoo.co.jp/rss/topics/science.xml" },
+//            { "国際", "https://news.yahoo.co.jp/rss/topics/world.xml" },
+//            { "スポーツ", "https://news.yahoo.co.jp/rss/topics/sports.xml" },
+//            { "地域", "https://news.yahoo.co.jp/rss/topics/local.xml" }
+//        };
 
-        // 重複しない履歴を管理するための HashSet
-        private readonly HashSet<string> rssUrlHistory = new HashSet<string>();
+//        private readonly HashSet<string> rssUrlHistory = new HashSet<string>();
 
-        public Form1() {
-            InitializeComponent();
-            InitializeRssUrls();  // 初期 RSS URL を設定
-        }
+//        // エラーメッセージ定義
+//        private const string InvalidUrlMessage = "正しいURLまたは名称を入力してください。";
+//        private const string LoadErrorMessage = "RSS フィードの読み込み中にエラーが発生しました: ";
+//        private const string AlreadyRegisteredMessage = "このURLはすでに登録されています。";
+//        private const string SuccessMessage = "URLが登録されました。";
 
-        private void InitializeRssUrls() {
-            foreach (var kvp in rssUrls) {
-                var item = new ComboBoxItem(kvp.Key, kvp.Value);
-                cbRssUrl.Items.Add(item);
-                rssUrlHistory.Add(kvp.Value); // 初期 URL を履歴に追加
-            }
+//        public Form1() {
+//            InitializeComponent();
+//            InitializeRssUrls();
+//        }
 
-        }
+//        private void InitializeRssUrls() {
+//            foreach (var kvp in rssUrls) {
+//                cbRssUrl.Items.Add(new ComboBoxItem(kvp.Key, kvp.Value));
+//                rssUrlHistory.Add(kvp.Value);
+//            }
+//        }
 
-        private void btGet_Click(object sender, EventArgs e) {
-            // コンボボックスで選択されているアイテムの URL を取得
-            string urlToLoad = string.Empty;
+//        private void btGet_Click(object sender, EventArgs e) {
+//            string urlToLoad = GetUrlToLoad();
 
-            if (cbRssUrl.SelectedItem is ComboBoxItem selectedItem) {
-                // 履歴の URL またはトピック名の選択を処理
-                urlToLoad = selectedItem.Url;
+//            if (Uri.IsWellFormedUriString(urlToLoad, UriKind.Absolute)) {
+//                if (IsUrlDefined(urlToLoad)) {
+//                    try {
+//                        LoadRssFeed(urlToLoad);
+//                    }
+//                    catch (Exception ex) {
+//                        MessageBox.Show(LoadErrorMessage + ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+//                    }
+//                } else {
+//                    MessageBox.Show("このURLは定義されていないRSSフィードです。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+//                }
+//            } else {
+//                MessageBox.Show(InvalidUrlMessage, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+//            }
+//        }
 
-                // トピック名から URL を取得する場合
-                if (rssUrls.ContainsKey(selectedItem.Name)) {
-                    urlToLoad = rssUrls[selectedItem.Name];
-                }
-            } else {
-                // コンボボックスで選択されていない場合、テキストボックスの URL を使用
-                urlToLoad = cbRssUrl.Text.Trim();
-            }
+//        private string GetUrlToLoad() {
+//            if (cbRssUrl.SelectedItem is ComboBoxItem selectedItem) {
+//                return selectedItem.Url;
+//            }
+//            return cbRssUrl.Text.Trim();
+//        }
 
-            if (Uri.IsWellFormedUriString(urlToLoad, UriKind.Absolute)) {
-                // URL を読み込み、タイトルを表示
-                LoadRssFeed(urlToLoad);
-            } else {
-                // 無効な URL の場合
-                MessageBox.Show("正しいURLを入力してください。", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
+//        private bool IsUrlDefined(string url) {
+//            return rssUrls.Values.Contains(url) || cbRssUrl.Items.OfType<ComboBoxItem>().Any(item => item.Url == url);
+//        }
 
+//        private void LoadRssFeed(string url) {
+//            using (var wc = new WebClient()) {
+//                var xdoc = XDocument.Load(url);
+//                items = xdoc.Root.Descendants("item")
+//                    .Select(item => new ItemData {
+//                        Title = item.Element("title")?.Value ?? "タイトルなし",
+//                        Link = item.Element("link")?.Value ?? string.Empty,
+//                    }).ToList();
 
-        private void LoadRssFeed(string url) {
-            using (var wc = new WebClient()) {
-                var xdoc = XDocument.Load(url);
+//                UpdateRssTitleList();
+//            }
+//            AddToRssUrlHistory(url);
+//        }
 
+//        private void UpdateRssTitleList() {
+//            lbRssTitle.Items.Clear();
+//            lbRssTitle.Items.AddRange(items.Select(item => item.Title).ToArray());
+//        }
 
+//        private void AddToRssUrlHistory(string rssUrl) {
+//            if (rssUrlHistory.Add(rssUrl) && !cbRssUrl.Items.OfType<ComboBoxItem>().Any(item => item.Url == rssUrl)) {
+//                cbRssUrl.Items.Add(new ComboBoxItem("Custom", rssUrl));
+//            }
+//        }
 
-                items = xdoc.Root.Descendants("item")
-                                    .Select(item => new ItemData {
-                                        Title = item.Element("title").Value,
-                                        Link = item.Element("link").Value,
-                                    }).ToList();
+//        private void lbRssTitle_SelectedIndexChanged(object sender, EventArgs e) {
+//            if (lbRssTitle.SelectedIndex >= 0 && lbRssTitle.SelectedIndex < items.Count) {
+//                var selectedItem = items[lbRssTitle.SelectedIndex];
+//                if (Uri.IsWellFormedUriString(selectedItem.Link, UriKind.Absolute)) {
+//                    webView21.Source = new Uri(selectedItem.Link);
+//                } else {
+//                    MessageBox.Show("選択されたリンクは無効なURLです。", "無効なURL", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+//                }
+//            }
+//        }
 
-                lbRssTitle.Items.Clear();
+//        private void btRegistration_Click(object sender, EventArgs e) {
+//            string newUrl = tbRssUrl.Text.Trim();
+//            string newName = tbRssName.Text.Trim();
 
-                foreach (var item in items) {
-                    lbRssTitle.Items.Add(item.Title);
-                }
-            }
-            setCbRssUrl(url);
-        }
+//            if (string.IsNullOrEmpty(newName) || string.IsNullOrEmpty(newUrl) || !Uri.IsWellFormedUriString(newUrl, UriKind.Absolute)) {
+//                MessageBox.Show(InvalidUrlMessage, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+//                return;
+//            }
 
-        private void setCbRssUrl(string rssUrl) {
-            // URL が履歴にない場合のみ追加
-            if (rssUrlHistory.Add(rssUrl)) {
-                // コンボボックス内で重複していないか確認
-                if (!cbRssUrl.Items.OfType<ComboBoxItem>().Any(item => item.Url == rssUrl)) {
-                    // `ComboBoxItem` を追加
-                    var newItem = new ComboBoxItem("Custom", rssUrl);
-                    cbRssUrl.Items.Add(newItem);
-                }
-            }
-        }
+//            if (rssUrlHistory.Contains(newUrl)) {
+//                MessageBox.Show(AlreadyRegisteredMessage, "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
+//                return;
+//            }
 
+//            var newItem = new ComboBoxItem(newName, newUrl);
+//            cbRssUrl.Items.Add(newItem);
+//            rssUrlHistory.Add(newUrl);
+//            cbRssUrl.SelectedItem = newItem;
 
+//            MessageBox.Show(SuccessMessage, "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+//            tbRssUrl.Clear();
+//            tbRssName.Clear();
+//        }
+//    }
 
+//    public class ItemData {
+//        public string Title { get; set; }
+//        public string Link { get; set; }
+//    }
 
-        private void lbRssTitle_SelectedIndexChanged(object sender, EventArgs e) {
-            if (lbRssTitle.SelectedIndex >= 0 && lbRssTitle.SelectedIndex < items.Count) {
-                var selectedItem = items[lbRssTitle.SelectedIndex];
-                if (Uri.IsWellFormedUriString(selectedItem.Link, UriKind.Absolute)) {
-                    webView21.Source = new Uri(selectedItem.Link);
-                } else {
-                    MessageBox.Show("The selected link is not a valid URL.", "Invalid URL", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-        }
+//    public class ComboBoxItem {
+//        public string Name { get; }
+//        public string Url { get; }
 
-        private void cbRssUrl_SelectedIndexChanged(object sender, EventArgs e) {
-            
-        }
+//        public ComboBoxItem(string name, string url) {
+//            Name = name;
+//            Url = url;
+//        }
 
-        private void cbRssUrl_TextChanged(object sender, EventArgs e) {
-
-        }
-
-        private void btRegistration_Click(object sender, EventArgs e) {
-            // テキストボックスからURLと名前を取得
-            string newUrl = tbRssUrl.Text.Trim();
-            string newName = tbRssName.Text.Trim();
-
-            // 名前が空でないか、URLが正しい形式かを確認
-            if (string.IsNullOrEmpty(newName) || string.IsNullOrEmpty(newUrl) || !Uri.IsWellFormedUriString(newUrl, UriKind.Absolute)) {
-                MessageBox.Show("無効なURLまたは名前です。正しいURLと名前を入力してください。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // URL がすでに履歴に存在するか確認
-            if (rssUrlHistory.Contains(newUrl)) {
-                MessageBox.Show("このURLはすでに登録されています。", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            // コンボボックスに新しいURLを追加
-            var newItem = new ComboBoxItem(newName, newUrl);
-            cbRssUrl.Items.Add(newItem);
-            rssUrlHistory.Add(newUrl);
-
-            // コンボボックスに登録したURLを表示
-            cbRssUrl.SelectedItem = newItem;
-
-            // 成功メッセージを表示
-            MessageBox.Show("URLが登録されました。", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            // テキストボックスの内容をクリアする（オプション）
-            tbRssUrl.Clear();
-            tbRssName.Clear();
-        }
-    }
-
-    public class ItemData {
-        public string Title { get; set; }
-        public string Link { get; set; }
-    }
-
-    public class ComboBoxItem {
-        public string Name { get; }
-        public string Url { get; }
-
-        public ComboBoxItem(string name, string url) {
-            Name = name;
-            Url = url;
-        }
-
-        public override string ToString() {
-            return Name;
-        }
-    }
-}
+//        public override string ToString() {
+//            return Name;
+//        }
+//    }
+//}
