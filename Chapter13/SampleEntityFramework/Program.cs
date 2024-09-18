@@ -50,7 +50,22 @@ namespace SampleEntityFramework {
         }
 
         private static void Exercise1_5() {
-            
+            using (var db = new BooksDbContext()) {
+                var authorsWithBooks = db.Authors
+                    .OrderByDescending(a => a.Birthday) // 誕生日の遅い順にソート
+                    .Select(a => new {
+                        Author = a,
+                        Books = db.Books.Where(b => b.Author.Id == a.Id)
+                    })
+                    .ToList();
+
+                foreach (var author in authorsWithBooks) {
+                    Console.WriteLine($"著者: {author.Author.Name}");
+                    foreach (var book in author.Books) {
+                        Console.WriteLine($"  タイトル: {book.Title}, 発行年: {book.PublishedYear}");
+                    }
+                }
+            }
         }
 
         //データの削除
