@@ -33,7 +33,20 @@ namespace SampleEntityFramework {
         }
 
         private static void Exercise1_4() {
-            
+            using (var db = new BooksDbContext()) {
+                var books = db.Books
+                              .OrderBy(b => b.PublishedYear)
+                              .Take(3)
+                              .Select(b => new {
+                                  b.Title,
+                                  AuthorName = b.Author.Name
+                              })
+                              .ToList();
+
+                foreach (var book in books) {
+                    Console.WriteLine($"タイトル: {book.Title}, 著者: {book.AuthorName}");
+                }
+            }
         }
 
         private static void Exercise1_5() {
