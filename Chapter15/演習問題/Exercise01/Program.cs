@@ -51,13 +51,36 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_4() {
-            var sortedBooks = Library.Books
-               .OrderByDescending(b => b.PublishedYear)
-               .ThenByDescending(b => b.Price);
+            //var sortedBooks = Library.Books
+            //   .OrderByDescending(b => b.PublishedYear)
+            //   .ThenByDescending(b => b.Price);
 
-            foreach (var book in sortedBooks) {
-                var categoryName = Library.Categories.First(c => c.Id == book.CategoryId).Name;
-                Console.WriteLine($"{book.PublishedYear}年 {book.Price}円 {book.Title} ({categoryName})");
+            //foreach (var book in sortedBooks) {
+            //    var categoryName = Library.Categories.First(c => c.Id == book.CategoryId).Name;
+            //    Console.WriteLine($"{book.PublishedYear}年 {book.Price}円 {book.Title} ({categoryName})");
+            //}
+
+            var query = Library.Books
+                .Join(Library.Categories,
+                        book => book.CategoryId,
+                        category => category.Id,
+                        (book, category) => new {
+                            book.Title,
+                            book.PublishedYear,
+                            book.Price,
+                            CategoryName = category.Name,
+                        })
+                .OrderByDescending(b => b.PublishedYear)
+                .ThenByDescending(b => b.Price);
+
+            foreach (var item in query){
+                Console.WriteLine("{0}年 {1}円 {2} ({3})",
+                                item.PublishedYear,
+                                item.Price,
+                                item.Title,
+                                item.CategoryName
+                                );
+
             }
         }
 
