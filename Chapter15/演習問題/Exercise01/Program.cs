@@ -56,7 +56,7 @@ namespace Exercise01 {
                .ThenByDescending(b => b.Price);
 
             foreach (var book in sortedBooks) {
-                Console.WriteLine(book);
+                Console.WriteLine($"{book.PublishedYear}年 {book.Price}円 {book.Title}");
             }
         }
 
@@ -72,7 +72,16 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_6() {
-            
+            var booksGroupedByCategory = Library.Books
+                .GroupBy(b => Library.Categories.First(c => c.Id == b.CategoryId).Name)
+                .OrderBy(g => g.Key);
+
+            foreach (var group in booksGroupedByCategory) {
+                Console.WriteLine($"# {group.Key}");
+                foreach (var book in group) {
+                    Console.WriteLine($"   {book.Title}");
+                }
+            }
         }
 
         private static void Exercise1_7() {
