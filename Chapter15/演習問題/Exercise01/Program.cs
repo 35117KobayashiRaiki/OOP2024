@@ -52,7 +52,13 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_4() {
-            
+            var sortedBooks = Library.Books
+               .OrderByDescending(b => b.PublishedYear)
+               .ThenByDescending(b => b.Price);
+
+            foreach (var book in sortedBooks) {
+                Console.WriteLine(book);
+            }
         }
 
         private static void Exercise1_5() {
