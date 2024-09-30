@@ -56,7 +56,8 @@ namespace Exercise01 {
                .ThenByDescending(b => b.Price);
 
             foreach (var book in sortedBooks) {
-                Console.WriteLine($"{book.PublishedYear}年 {book.Price}円 {book.Title}");
+                var categoryName = Library.Categories.First(c => c.Id == book.CategoryId).Name;
+                Console.WriteLine($"{book.PublishedYear}年 {book.Price}円 {book.Title} ({categoryName})");
             }
         }
 
