@@ -41,7 +41,6 @@ namespace Exercise01 {
                 .Select(g => new {
                     Year = g.Key,
                     Count = g.Count(),
-                    Books = g.ToList()
                 })
                 .OrderBy(g => g.Year);
 
@@ -62,7 +61,14 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_5() {
-            
+            var categories = Library.Books
+                .Where(b => b.PublishedYear == 2016)
+                .Select(b => Library.Categories.First(c => c.Id == b.CategoryId).Name)
+                .Distinct();
+
+            foreach (var category in categories) {
+                Console.WriteLine(category);
+            }
         }
 
         private static void Exercise1_6() {
