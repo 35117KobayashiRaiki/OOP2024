@@ -125,7 +125,23 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_8() {
-            
+            var query = Library.Categories
+                .GroupJoin(
+                   Library.Books,
+                   category => category.Id,
+                   book => book.CategoryId,
+                   (category, books) => new {
+                       CategoryName = category.Name,
+                       BookCount = books.Count()
+                   })
+               .Where(result => result.BookCount >= 4)
+               .Select(result => result.CategoryName)
+               .OrderBy(name => name);
+
+            foreach (var categoryName in query) {
+                Console.WriteLine($"{categoryName}");
+
+            }
         }
     }
 }
