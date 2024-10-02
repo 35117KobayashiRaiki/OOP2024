@@ -85,14 +85,28 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_5() {
-            var categories = Library.Books
+            //var categories = Library.Books
+            //    .Where(b => b.PublishedYear == 2016)
+            //    .Select(b => Library.Categories.First(c => c.Id == b.CategoryId).Name)
+            //    .Distinct();
+
+            //foreach (var category in categories) {
+            //    Console.WriteLine(category);
+            //}
+
+            var query = Library.Books
                 .Where(b => b.PublishedYear == 2016)
-                .Select(b => Library.Categories.First(c => c.Id == b.CategoryId).Name)
+                .Join(Library.Categories,
+                        book => book.CategoryId,    //結合する二番目のシーケンス
+                        category => category.Id,    //対象シーケンスの結合キー
+                        (book, category) => category.Name)     //二番目のシーケンス結合キー
                 .Distinct();
 
-            foreach (var category in categories) {
-                Console.WriteLine(category);
+            foreach (var name in query){
+                Console.WriteLine(name);
             }
+
+
         }
 
         private static void Exercise1_6() {
