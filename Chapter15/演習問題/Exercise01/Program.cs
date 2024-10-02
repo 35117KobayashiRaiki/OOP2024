@@ -110,19 +110,38 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_6() {
-            var booksGroupedByCategorys = Library.Books
-                .GroupBy(b => Library.Categories.First(c => c.Id == b.CategoryId).Name)
-                .OrderBy(g => g.Key);
+            //var booksGroupedByCategorys = Library.Books
+            //    .GroupBy(b => Library.Categories.First(c => c.Id == b.CategoryId).Name)
+            //    .OrderBy(g => g.Key);
 
-            foreach (var group in booksGroupedByCategorys) {
-                Console.WriteLine($"# {group.Key}");
-                foreach (var book in group) {
-                    Console.WriteLine($"   {book.Title}");
+            //foreach (var group in booksGroupedByCategorys) {
+            //    Console.WriteLine($"# {group.Key}");
+            //    foreach (var book in group) {
+            //        Console.WriteLine($"   {book.Title}");
+            //    }
+            //}
+
+            var querys = Library.Books
+               .Join(Library.Categories,        //結合する二番目のシーケンス
+                       book => book.CategoryId, //対象シーケンスの結合キー  
+                       category => category.Id, //二番目のシーケンス結合キー   
+                       (book, category) => new {
+                           book.Title,
+                           CategoryName = category.Name
+                       })
+               .GroupBy(x => x.CategoryName)
+               .OrderBy(x => x.Key);
+
+            foreach (var group in querys) {
+                    Console.WriteLine("#{0}" ,group.Key);
+                    foreach (var book in group) {
+                        Console.WriteLine("  {0}",book.Title);
+                    }
                 }
-            }
-        }
 
-        private static void Exercise1_7() {
+            }
+
+            private static void Exercise1_7() {
             var developmentCategoryId = Library.Categories.First(c => c.Name == "Development").Id;
 
             var booksGroupedByYear = Library.Books
