@@ -110,11 +110,11 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_6() {
-            var booksGroupedByCategory = Library.Books
+            var booksGroupedByCategorys = Library.Books
                 .GroupBy(b => Library.Categories.First(c => c.Id == b.CategoryId).Name)
                 .OrderBy(g => g.Key);
 
-            foreach (var group in booksGroupedByCategory) {
+            foreach (var group in booksGroupedByCategorys) {
                 Console.WriteLine($"# {group.Key}");
                 foreach (var book in group) {
                     Console.WriteLine($"   {book.Title}");
