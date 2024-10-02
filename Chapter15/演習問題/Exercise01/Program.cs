@@ -94,7 +94,7 @@ namespace Exercise01 {
             //    Console.WriteLine(category);
             //}
 
-            var query = Library.Books
+            var querys = Library.Books
                 .Where(b => b.PublishedYear == 2016)
                 .Join(Library.Categories,
                         book => book.CategoryId,    //結合する二番目のシーケンス
@@ -102,7 +102,7 @@ namespace Exercise01 {
                         (book, category) => category.Name)     //二番目のシーケンス結合キー
                 .Distinct();
 
-            foreach (var name in query){
+            foreach (var name in querys){
                 Console.WriteLine(name);
             }
 
