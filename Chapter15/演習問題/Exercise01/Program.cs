@@ -46,7 +46,7 @@ namespace Exercise01 {
 
             foreach (var group in groups) {
                 Console.WriteLine($"発行年: {group.Year}, 書籍数: {group.Count}");
-                
+
             }
         }
 
@@ -73,7 +73,7 @@ namespace Exercise01 {
                 .OrderByDescending(b => b.PublishedYear)
                 .ThenByDescending(b => b.Price);
 
-            foreach (var item in query){
+            foreach (var item in query) {
                 Console.WriteLine("{0}年 {1}円 {2} ({3})",
                                 item.PublishedYear,
                                 item.Price,
@@ -102,7 +102,7 @@ namespace Exercise01 {
                         (book, category) => category.Name)     //二番目のシーケンス結合キー
                 .Distinct();
 
-            foreach (var name in querys){
+            foreach (var name in querys) {
                 Console.WriteLine(name);
             }
 
@@ -133,29 +133,43 @@ namespace Exercise01 {
                .OrderBy(x => x.Key);
 
             foreach (var group in querys) {
-                    Console.WriteLine("#{0}" ,group.Key);
-                    foreach (var book in group) {
-                        Console.WriteLine("  {0}",book.Title);
-                    }
+                Console.WriteLine("#{0}", group.Key);
+                foreach (var book in group) {
+                    Console.WriteLine("  {0}", book.Title);
                 }
-
             }
 
-            private static void Exercise1_7() {
-            var developmentCategoryId = Library.Categories.First(c => c.Name == "Development").Id;
+        }
 
-            var booksGroupedByYear = Library.Books
-            .Where(b => b.CategoryId == developmentCategoryId)
-            .GroupBy(b => b.PublishedYear)
-            .OrderBy(g => g.Key);
 
-            foreach (var group in booksGroupedByYear) {
-                Console.WriteLine($"#{group.Key}年");
+        private static void Exercise1_7() {
+            //var developmentCategoryId = Library.Categories.First(c => c.Name == "Development").Id;
+
+            //var booksGroupedByYear = Library.Books
+            //.Where(b => b.CategoryId == developmentCategoryId)
+            //.GroupBy(b => b.PublishedYear)
+            //.OrderBy(g => g.Key);
+
+            //foreach (var group in booksGroupedByYear) {
+            //    Console.WriteLine($"#{group.Key}年");
+            //    foreach (var book in group) {
+            //        Console.WriteLine($" {book.Title}");
+            //    }
+            //}
+
+            var categoriesId = Library.Categories.Single(c => c.Name == "Development").Id;
+            var query = Library.Books.Where(b => b.CategoryId == categoriesId)
+                                     .GroupBy(b => b.PublishedYear)
+                                     .OrderBy(b => b.Key);
+
+            foreach (var group in query) {
+                Console.WriteLine("#{0}", group.Key);
                 foreach (var book in group) {
-                    Console.WriteLine($" {book.Title}");
+                    Console.WriteLine("  {0}", book.Title);
                 }
             }
         }
+           
 
         private static void Exercise1_8() {
             var query = Library.Categories
