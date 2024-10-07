@@ -64,5 +64,19 @@ namespace Section04 {
             var rev = xmldoc.Root.Descendants("rev").FirstOrDefault();
             return WebUtility.HtmlDecode(rev?.Value);
         }
+
+        private async void bt_16_23_Click(object sender, RoutedEventArgs e) {
+            var tasks = new Task<string>[] {
+                  GetPageAsync(@"http://msdn.microsoft.com/magazine/"),
+                  GetPageAsync(@"http://msdn.microsoft.com/ja-jp/"),
+            };
+            var results = await Task.WhenAll(tasks);
+
+            // それぞれ先頭300文字を表示する
+            textBlock.Text =
+               results[0].Substring(0, 300) +
+               Environment.NewLine + Environment.NewLine +
+               results[1].Substring(0, 300);
+        }
     }
 }
