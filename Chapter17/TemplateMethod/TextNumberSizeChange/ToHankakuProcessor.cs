@@ -4,28 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TextFileProcessor;
+using TextNumberSizeChange.Framework;
 
 namespace TextNumberSizeChange {
-    class ToHankakuProcessor : TextProcessor{
+    class ToHankakuProcessor : ITextFileService{
 
-        private int _count;
-        string _text = "";
+        //private int _count;
+        private string _text = "";
 
-        protected override void Initialize(string fname) {
-            _count = 0;
+        public void Initialize(string fname) {
+            //_count = 0;
             _text = "";
         }
 
-        protected override void Execute(string line) {
+        public void Execute(string line) {
             string convertedLine = ConvertFullWidthToHalfWidth(line);
             Console.WriteLine(convertedLine);
             _text += convertedLine + Environment.NewLine; 
-            _count++;
+            //_count++;
         }
 
-        protected override void Terminate() {
-            Console.WriteLine("{0}行", _count);
-            Console.WriteLine("置き換え結果:\n{0}", _text);
+        public void Terminate() {
+            //Console.WriteLine("{0}行", _count);
+            Console.WriteLine(_text);
         }
 
         // 全角数字を半角数字に変換するメソッド

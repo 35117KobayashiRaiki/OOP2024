@@ -14,7 +14,7 @@ namespace TextFileProcessor {
         }
 
         private void Process(string fileName) {
-            Initialize(fileName);
+            //Initialize(fileName);
             using (var sr = new StreamReader(fileName)) {
                 while (!sr.EndOfStream) {
                     string line = sr.ReadLine();
@@ -24,7 +24,7 @@ namespace TextFileProcessor {
             Terminate();
         }
 
-        protected virtual void Initialize(string fname) { }
+        //protected virtual void Initialize(string fname) { }
         protected virtual void Execute(string line) { }
         protected virtual void Terminate() { }
     }
