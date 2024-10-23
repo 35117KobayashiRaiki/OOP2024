@@ -19,30 +19,24 @@ namespace CollorChecker {
     /// </summary>
     public partial class MainWindow : Window {
 
-        private List<Color> colorStock = new List<Color>();
+        private List<MyColor> colorStock = new List<MyColor>();
 
         public MainWindow() {
             InitializeComponent();
-            UpdateColorValues();
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            UpdateColorValues();
-        }
-
-        private void UpdateColorValues() {
-            int r = (int)rSlider.Value;
-            int g = (int)gSlider.Value;
-            int b = (int)bSlider.Value;
+            byte r = (byte)rSlider.Value;
+            byte g = (byte)gSlider.Value;
+            byte b = (byte)bSlider.Value;
 
             rValue.Text = r.ToString();
             gValue.Text = g.ToString();
             bValue.Text = b.ToString();
 
-            Color color = Color.FromRgb((byte)r, (byte)g, (byte)b);
-            colorArea.Background = new SolidColorBrush(color);
-
+            colorArea.Background = new SolidColorBrush(Color.FromRgb(r, g, b));
         }
+
 
         private void Value_TextChanged(object sender, TextChangedEventArgs e) {
             if (int.TryParse(rValue.Text, out int r) &&
@@ -57,15 +51,32 @@ namespace CollorChecker {
                 gSlider.Value = g;
                 bSlider.Value = b;
 
-                Color color = Color.FromRgb((byte)r, (byte)g, (byte)b);
-                colorArea.Background = new SolidColorBrush(color);
+                colorArea.Background = new SolidColorBrush(Color.FromRgb((byte)r, (byte)g, (byte)b));
             }
         }
 
         private void stockButton_Click(object sender, RoutedEventArgs e) {
             Color currentColor = ((SolidColorBrush)colorArea.Background).Color;
-            colorStock.Add(currentColor);
-            stockList.Items.Add(currentColor.ToString());
+            var myColor = new MyColor { Color = currentColor, Name = "Color " + (colorStock.Count + 1) };
+            colorStock.Add(myColor);
+            stockList.Items.Add(myColor);
+        }
+
+        private void stockList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (stockList.SelectedItem is MyColor selectedColor) {
+                byte r = selectedColor.Color.R;
+                byte g = selectedColor.Color.G;
+                byte b = selectedColor.Color.B;
+
+                rSlider.Value = r;
+                gSlider.Value = g;
+                bSlider.Value = b;
+
+                rValue.Text = r.ToString();
+                gValue.Text = g.ToString();
+                bValue.Text = b.ToString();
+                colorArea.Background = new SolidColorBrush(selectedColor.Color);
+            }
         }
     }
 }
