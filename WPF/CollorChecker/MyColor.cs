@@ -10,7 +10,7 @@ namespace CollorChecker {
         public Color Color { get; set; }
         public string Name { get; set; } = string.Empty;
         public override string ToString() {
-            return $"{Name} ({Color.R}, {Color.G}, {Color.B})";
+            return $"R: {Color.R}, G: {Color.G}, B: {Color.B}"; ;
         }
     }
 }
