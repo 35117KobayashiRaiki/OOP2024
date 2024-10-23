@@ -44,6 +44,24 @@ namespace CollorChecker {
 
         }
 
+        private void Value_TextChanged(object sender, TextChangedEventArgs e) {
+            if (int.TryParse(rValue.Text, out int r) &&
+                int.TryParse(gValue.Text, out int g) &&
+                int.TryParse(bValue.Text, out int b)) {
+
+                r = r < 0 ? 0 : (r > 255 ? 255 : r);
+                g = g < 0 ? 0 : (g > 255 ? 255 : g);
+                b = b < 0 ? 0 : (b > 255 ? 255 : b);
+
+                rSlider.Value = r;
+                gSlider.Value = g;
+                bSlider.Value = b;
+
+                Color color = Color.FromRgb((byte)r, (byte)g, (byte)b);
+                colorArea.Background = new SolidColorBrush(color);
+            }
+        }
+
         private void stockButton_Click(object sender, RoutedEventArgs e) {
             Color currentColor = ((SolidColorBrush)colorArea.Background).Color;
             colorStock.Add(currentColor);

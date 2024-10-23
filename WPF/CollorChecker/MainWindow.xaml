@@ -29,15 +29,15 @@
 
             <TextBlock Grid.Row="0" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Text="R"/>
             <Slider x:Name="rSlider" Maximum="255" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" ValueChanged="Slider_ValueChanged"/>
-            <TextBox x:Name="rValue" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" FontSize="20"/>
+            <TextBox x:Name="rValue" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" FontSize="20" TextChanged="Value_TextChanged"/>
 
             <TextBlock Grid.Row="1" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Text="G"/>
             <Slider x:Name="gSlider" Maximum="255" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" ValueChanged="Slider_ValueChanged"/>
-            <TextBox x:Name="gValue" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" FontSize="20"/>
+            <TextBox x:Name="gValue" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" FontSize="20" TextChanged="Value_TextChanged"/>
 
             <TextBlock Grid.Row="2" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Text="B"/>
             <Slider x:Name="bSlider" Maximum="255" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" ValueChanged="Slider_ValueChanged"/>
-            <TextBox x:Name="bValue" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" FontSize="20"/>
+            <TextBox x:Name="bValue" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" FontSize="20" TextChanged="Value_TextChanged"/>
 
             <ComboBox x:Name="colorSelectComboBox" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"/>
         </Grid>
