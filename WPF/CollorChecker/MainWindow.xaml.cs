@@ -56,10 +56,16 @@ namespace CollorChecker {
         }
 
         private void stockButton_Click(object sender, RoutedEventArgs e) {
-            Color currentColor = ((SolidColorBrush)colorArea.Background).Color;
-            var myColor = new MyColor { Color = currentColor, Name = "Color " + (colorStock.Count + 1) };
-            colorStock.Add(myColor);
-            stockList.Items.Add(myColor);
+            var currentColor = ((SolidColorBrush)colorArea.Background).Color;
+
+            // 重複チェック
+            if (!colorStock.Any(c => c.Color == currentColor)) {
+                var myColor = new MyColor { Color = currentColor, Name = "Color " + (colorStock.Count + 1) };
+                colorStock.Add(myColor);
+                stockList.Items.Add(myColor);
+            } else {
+                MessageBox.Show("この色はすでに登録されています。", "重複エラー", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void stockList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
