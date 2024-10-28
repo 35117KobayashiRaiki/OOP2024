@@ -29,22 +29,27 @@ namespace CollorChecker {
         //スライダーを動かすと呼ばれるイベントハンドラ
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
             currentColor.Color = Color.FromRgb((byte)rSlider.Value, (byte)gSlider.Value, (byte)bSlider.Value);
+            currentColor.Name = null;
             colorArea.Background = new SolidColorBrush(currentColor.Color);
+
         }
 
         private void stockButton_Click(object sender, RoutedEventArgs e) {
-            if (stockList.Items.Contains((MyColor)currentColor)){
-                MessageBox.Show("既に登録されています！");
-            } else {
+            //既に登録されている場合は登録しない
+            if (!stockList.Items.Contains((MyColor)currentColor)){
                 stockList.Items.Insert(0, currentColor);
+            } else {
+                MessageBox.Show("既に登録されています！", "ColorChecker", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
         private void stockList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             colorArea.Background = new SolidColorBrush(((MyColor)stockList.Items[stockList.SelectedIndex]).Color);
+            //各スライダーの値の設定する
             setSliderValue((((MyColor)stockList.Items[stockList.SelectedIndex]).Color));
         }
 
+        //各スライダーの値の設定する
         private void setSliderValue(Color color) {
             rSlider.Value = color.R;
             gSlider.Value = color.G;
@@ -52,9 +57,10 @@ namespace CollorChecker {
         }
 
         private void colorSelectComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            currentColor = (MyColor)((ComboBox)sender).SelectedItem;
+            var tempCurrentColor = currentColor = (MyColor)((ComboBox)sender).SelectedItem;
+            //各スライダーの値の設定する
             setSliderValue(currentColor.Color);
-            
+            currentColor.Name = tempCurrentColor.Name;  //Nameプロパティの文字列を再設定
         }
     }
 }
