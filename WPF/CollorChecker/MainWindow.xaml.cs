@@ -1,72 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace CollorChecker {
     public partial class MainWindow : Window {
-        private List<MyColor> colorStock = new List<MyColor>();
+        MyColor currentColor;   //現在設定している色情報
 
         public MainWindow() {
             InitializeComponent();
+            //αチャンネルの初期値を設定 (起動時すぐにストックボタンが押された場合の対応)
+            currentColor.Color = Color.FromArgb(255, 0, 0, 0);
+            DataContext = GetColorList();
         }
 
+        /// <summary>
+        /// すべての色を取得するメソッド
+        /// </summary>
+        /// <returns></returns>
+        private MyColor[] GetColorList() {
+            return typeof(Colors).GetProperties(BindingFlags.Public | BindingFlags.Static)
+                .Select(i => new MyColor() { Color = (Color)i.GetValue(null), Name = i.Name }).ToArray();
+        }
+
+        //スライダーを動かすと呼ばれるイベントハンドラ
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            UpdateColorFromSliders();
-        }
-
-        private void Value_TextChanged(object sender, TextChangedEventArgs e) {
-            if (int.TryParse(rValue.Text, out int r) &&
-                int.TryParse(gValue.Text, out int g) &&
-                int.TryParse(bValue.Text, out int b)) {
-
-                rSlider.Value = Clamp(r);
-                gSlider.Value = Clamp(g);
-                bSlider.Value = Clamp(b);
-
-                UpdateColor();
-            }
-        }
-
-        private int Clamp(int value) {
-            return Math.Max(0, Math.Min(255, value));
-        }
-
-        private void UpdateColorFromSliders() {
-            UpdateColor();
-            rValue.Text = ((byte)rSlider.Value).ToString();
-            gValue.Text = ((byte)gSlider.Value).ToString();
-            bValue.Text = ((byte)bSlider.Value).ToString();
-        }
-
-        private void UpdateColor() {
-            byte r = (byte)rSlider.Value;
-            byte g = (byte)gSlider.Value;
-            byte b = (byte)bSlider.Value;
-            colorArea.Background = new SolidColorBrush(Color.FromRgb(r, g, b));
+            currentColor.Color = Color.FromRgb((byte)rSlider.Value, (byte)gSlider.Value, (byte)bSlider.Value);
+            colorArea.Background = new SolidColorBrush(currentColor.Color);
         }
 
         private void stockButton_Click(object sender, RoutedEventArgs e) {
-            var currentColor = ((SolidColorBrush)colorArea.Background).Color;
-            if (!colorStock.Any(c => c.Color == currentColor)) {
-                var myColor = new MyColor { Color = currentColor };
-                colorStock.Add(myColor);
-                stockList.Items.Add(myColor);
+            if (stockList.Items.Contains((MyColor)currentColor)){
+                MessageBox.Show("既に登録されています！");
             } else {
-                MessageBox.Show("この色はすでに登録されています。", "重複エラー", MessageBoxButton.OK, MessageBoxImage.Warning);
+                stockList.Items.Insert(0, currentColor);
             }
         }
 
         private void stockList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            if (stockList.SelectedItem is MyColor selectedColor) {
-                rSlider.Value = selectedColor.Color.R;
-                gSlider.Value = selectedColor.Color.G;
-                bSlider.Value = selectedColor.Color.B;
+            colorArea.Background = new SolidColorBrush(((MyColor)stockList.Items[stockList.SelectedIndex]).Color);
+            setSliderValue((((MyColor)stockList.Items[stockList.SelectedIndex]).Color));
+        }
 
-                UpdateColorFromSliders();
-            }
+        private void setSliderValue(Color color) {
+            rSlider.Value = color.R;
+            gSlider.Value = color.G;
+            bSlider.Value = color.B;
+        }
+
+        private void colorSelectComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            currentColor = (MyColor)((ComboBox)sender).SelectedItem;
+            setSliderValue(currentColor.Color);
+            
         }
     }
 }
