@@ -75,9 +75,18 @@ namespace CollorChecker {
             // アイテムが選択されている場合は削除
             if (selectedColor.HasValue) {
                 stockList.Items.Remove(selectedColor.Value);
+                ResetToDefaultColor();
             } else {
                 MessageBox.Show("削除するアイテムを選択してください！", "ColorChecker", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+        }
+
+        private void ResetToDefaultColor() {
+            rSlider.Value = 0;
+            gSlider.Value = 0;
+            bSlider.Value = 0;
+
+            colorArea.Background = new SolidColorBrush(Colors.Black);
         }
 
         private void UpdateStockButtonColor() {
