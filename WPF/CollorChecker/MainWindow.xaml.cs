@@ -29,7 +29,10 @@ namespace CollorChecker {
         //スライダーを動かすと呼ばれるイベントハンドラ
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
             currentColor.Color = Color.FromRgb((byte)rSlider.Value, (byte)gSlider.Value, (byte)bSlider.Value);
-            currentColor.Name = null;
+            currentColor.Name = GetColorList().Where(c => c.Color.Equals(currentColor.Color))
+                .Select(c => c.Name)
+                .FirstOrDefault() ??
+                $"R:{currentColor.Color.R} G:{currentColor.Color.G} B:{currentColor.Color.B}";
             colorArea.Background = new SolidColorBrush(currentColor.Color);
             UpdateStockButtonColor(); // ボタンの色を更新
 
