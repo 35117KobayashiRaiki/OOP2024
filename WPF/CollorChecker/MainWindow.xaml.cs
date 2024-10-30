@@ -75,10 +75,17 @@ namespace CollorChecker {
         private void removeButton_Click(object sender, RoutedEventArgs e) {
             var selectedColor = stockList.SelectedItem as MyColor?;
 
-            // アイテムが選択されている場合は削除
-            if (selectedColor.HasValue) {
-                stockList.Items.Remove(selectedColor.Value);
-                ResetToDefaultColor();
+            if (selectedColor != null) {
+                MessageBoxResult result = MessageBox.Show(
+                    $"'{selectedColor}' を削除しますか？",
+                    "確認",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes) {
+                    stockList.Items.Remove(selectedColor);
+                    ResetToDefaultColor();
+                }
             } else {
                 MessageBox.Show("削除するアイテムを選択してください！", "ColorChecker", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
