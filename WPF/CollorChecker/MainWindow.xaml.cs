@@ -31,6 +31,7 @@ namespace CollorChecker {
             currentColor.Color = Color.FromRgb((byte)rSlider.Value, (byte)gSlider.Value, (byte)bSlider.Value);
             currentColor.Name = null;
             colorArea.Background = new SolidColorBrush(currentColor.Color);
+            UpdateStockButtonColor(); // ボタンの色を更新
 
         }
 
@@ -38,6 +39,7 @@ namespace CollorChecker {
             //既に登録されている場合は登録しない
             if (!stockList.Items.Contains((MyColor)currentColor)){
                 stockList.Items.Insert(0, currentColor);
+                UpdateStockButtonColor(); // ボタンの色を更新
             } else {
                 MessageBox.Show("既に登録されています！", "ColorChecker", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -64,6 +66,7 @@ namespace CollorChecker {
             //各スライダーの値の設定する
             setSliderValue(currentColor.Color);
             currentColor.Name = tempCurrentColor.Name;  //Nameプロパティの文字列を再設定
+            UpdateStockButtonColor(); // ボタンの色を更新
         }
 
         private void removeButton_Click(object sender, RoutedEventArgs e) {
@@ -76,5 +79,10 @@ namespace CollorChecker {
                 MessageBox.Show("削除するアイテムを選択してください！", "ColorChecker", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
+        private void UpdateStockButtonColor() {
+            stockButton.Background = new SolidColorBrush(currentColor.Color);
+        }
+
     }
 }
