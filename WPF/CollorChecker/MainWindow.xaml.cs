@@ -9,12 +9,13 @@ using System.Windows.Media;
 namespace CollorChecker {
     public partial class MainWindow : Window {
         MyColor currentColor;   //現在設定している色情報
+        MyColor[] colorsTable;  //色のデータ
 
         public MainWindow() {
             InitializeComponent();
             //αチャンネルの初期値を設定 (起動時すぐにストックボタンが押された場合の対応)
             currentColor.Color = Color.FromArgb(255, 0, 0, 0);
-            DataContext = GetColorList();
+            DataContext = colorsTable = GetColorList();
         }
 
         /// <summary>
@@ -29,10 +30,23 @@ namespace CollorChecker {
         //スライダーを動かすと呼ばれるイベントハンドラ
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
             currentColor.Color = Color.FromRgb((byte)rSlider.Value, (byte)gSlider.Value, (byte)bSlider.Value);
-            currentColor.Name = GetColorList().Where(c => c.Color.Equals(currentColor.Color))
-                .Select(c => c.Name)
-                .FirstOrDefault() ??
-                $"R:{currentColor.Color.R} G:{currentColor.Color.G} B:{currentColor.Color.B}";
+
+            currentColor.Name = colorsTable.Where(c => c.Color.Equals(currentColor.Color)).Select(c => c.Name).FirstOrDefault();
+
+            //int i;
+            //for (i = 0; i < colorsTable.Length; i++) {
+            //    if (colorsTable[i].Color.Equals(currentColor.Color)) {
+            //        currentColor.Name = colorsTable[i].Name;
+            //        break;
+            //    }
+            //}
+
+            //if (i == colorsTable.Length) {
+            //    colorSelectComboBox.SelectedIndex = i;
+            //} else {
+            //    colorSelectComboBox.SelectedIndex = 0;
+            //}
+            
             colorArea.Background = new SolidColorBrush(currentColor.Color);
             UpdateStockButtonColor(); // ボタンの色を更新
 
