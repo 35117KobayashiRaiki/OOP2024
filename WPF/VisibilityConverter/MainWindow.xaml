@@ -7,13 +7,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="250" Width="300">
     <Window.Resources>
-        <SolidColorBrush x:Key="ButtonBrushKey" Color="Aqua"/>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="Violet"/>
+        </Style>
+        <Style x:Key="WhiteBackgroundStyle" TargetType="Button">
+            <Setter Property="Background" Value="Violet"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
     </Window.Resources>
     
     <StackPanel>
         <StackPanel.Resources>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-            <!--<SolidColorBrush x:Key=" ButtonBrushKey" Color="OrangeRed"/>-->
         </StackPanel.Resources>
 
         <CheckBox x:Name="CheckBox" Content="設定大項目" IsChecked="False"/>
@@ -26,17 +32,15 @@
             <RadioButton Content="緑" GroupName="ColorGroup" Tag="Green" Checked="RadioButton_Checked"/>
         </StackPanel>
 
-        <Button Margin="10" Content="ボタン1" Background="{DynamicResource ButtonBrushKey}"/>
-        <Button Margin="10" Content="ボタン2" Background="{DynamicResource ButtonBrushKey}"/>
-        <Button Margin="10" Content="ボタン3">
-            <Button.Resources>
-                <SolidColorBrush x:Key="WhiteBrushKey" Color="BlueViolet"/>
-            </Button.Resources>
-            <Button.Background>
-                <StaticResource ResourceKey="WhiteBrushKey"/>
-            </Button.Background>
-            
+        <Button Margin="10" Content="ボタン1" Style="{StaticResource WhiteBackgroundStyle}"/>
+        <Button Margin="10" Content="ボタン2">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource WhiteBackgroundStyle}">
+                    <Setter Property="FontSize" Value="18"/>
+                </Style>
+            </Button.Style>
         </Button>
+        <Button Margin="10" Content="ボタン3"/>
 
     </StackPanel>
 </Window>
