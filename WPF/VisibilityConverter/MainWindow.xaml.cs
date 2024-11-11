@@ -42,7 +42,7 @@ namespace VisibilityConverter {
                 } else if (colorName == "Green") {
                     colorBrush = new SolidColorBrush(Colors.Green);
                 } else {
-                    colorBrush = new SolidColorBrush(Colors.Aqua); 
+                    colorBrush = new SolidColorBrush(Colors.Aqua);
                 }
 
                 // ボタンの背景色を変更
@@ -50,8 +50,25 @@ namespace VisibilityConverter {
             }
         }
 
-            //private void Button_Click(object sender, RoutedEventArgs e) {
-            //    Resources["ButtonBrushkey"] = new SolidColorBrush(Colors.DarkGreen);
-            //}
+        //private void Button_Click(object sender, RoutedEventArgs e) {
+        //    Resources["ButtonBrushkey"] = new SolidColorBrush(Colors.DarkGreen);
+        //}
+
+        //private void RadioButton_Click(object sender, RoutedEventArgs e) {
+        //    RadioButton selectedRadioButton = (RadioButton)sender;
+
+        //    switch(selectedRadioButton.Content) {
+        //        case "赤":
+        //            Resources["ButtonBrushkey"] = new SolidColorBrush(Colors.Red);
+        //            break;
+        //        case "青":
+        //            Resources["ButtonBrushkey"] = new SolidColorBrush(Colors.Blue);
+        //            break;
+        //        case "緑":
+        //            Resources["ButtonBrushkey"] = new SolidColorBrush(Colors.Green);
+        //            break;
+
+        //    }
+        //}
     }
 }
