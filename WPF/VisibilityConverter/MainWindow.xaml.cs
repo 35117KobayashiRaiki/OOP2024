@@ -50,9 +50,9 @@ namespace VisibilityConverter {
             }
         }
 
-        //private void Button_Click(object sender, RoutedEventArgs e) {
+        private void Button_Click(object sender, RoutedEventArgs e) {
         //    Resources["ButtonBrushkey"] = new SolidColorBrush(Colors.DarkGreen);
-        //}
+        }
 
         //private void RadioButton_Click(object sender, RoutedEventArgs e) {
         //    RadioButton selectedRadioButton = (RadioButton)sender;

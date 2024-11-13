@@ -7,13 +7,32 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="250" Width="300">
     <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="Black"/>
-            <Setter Property="Foreground" Value="Violet"/>
-        </Style>
-        <Style x:Key="WhiteBackgroundStyle" TargetType="Button">
-            <Setter Property="Background" Value="Violet"/>
-            <Setter Property="Foreground" Value="Black"/>
+        <DataTemplate DataType="{x:Type local:ColorViewMode}">
+            <StackPanel Orientation="Horizontal">
+                <Rectangle Width="12" Height="12">
+                    <Rectangle.Fill>
+                        <SolidColorBrush Color="{Binding Color}"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <TextBlock Margin="2" Text="{Binding Name}"/>
+            </StackPanel>
+        </DataTemplate>
+        
+        <Style x:Key="EllipseButton" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse  Fill="{TemplateBinding Background}"/>
+                            <ContentPresenter
+                                Margin="{TemplateBinding Padding}"
+                                RecognizesAccessKey="True"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>    
         </Style>
     </Window.Resources>
     
@@ -32,15 +51,12 @@
             <RadioButton Content="緑" GroupName="ColorGroup" Tag="Green" Checked="RadioButton_Checked"/>
         </StackPanel>
 
-        <Button Margin="10" Content="ボタン1" Style="{StaticResource WhiteBackgroundStyle}"/>
-        <Button Margin="10" Content="ボタン2">
-            <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource WhiteBackgroundStyle}">
-                    <Setter Property="FontSize" Value="18"/>
-                </Style>
-            </Button.Style>
-        </Button>
-        <Button Margin="10" Content="ボタン3"/>
+        <Button Style="{StaticResource EllipseButton}"
+                Content="ボタン1" Background="Gray" Click="Button_Click"/>
+
+        <Button Style="{StaticResource EllipseButton}" Padding="10"
+                Content="ボタン2" Background="LightBlue"/>
+        <ComboBox ItemsSource="{x:Static local:ColorViewMode.ColorList}"/>
 
     </StackPanel>
 </Window>
