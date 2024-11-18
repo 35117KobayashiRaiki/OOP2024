@@ -42,13 +42,17 @@ namespace CustomerApp {
             }
             ReadDatabase(); //ListView表示
 
-            //テキストボックスをクリア
+            //テキストボックスと画像をクリア
+            ClearInputFields();
+        }
+
+        //テキストボックスと画像をクリア
+        private void ClearInputFields() {
             NameTextBox.Clear();
             PhoneTextBox.Clear();
             AddressTextBox.Clear();
-
-            // 画像をクリア
             _imageBytes = null; // 画像データをクリア
+            CustomerImage.Source = null; // Imageコントロールをクリア
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e) {
@@ -60,6 +64,11 @@ namespace CustomerApp {
                 selectedCustomer.Phone = PhoneTextBox.Text;
                 selectedCustomer.Address = AddressTextBox.Text;
 
+                // 画像も更新する（_imageBytesがnullでない場合）
+                if (_imageBytes != null) {
+                    selectedCustomer.Image = _imageBytes; // 新しい画像データを設定
+                }
+
                 // データベースに接続して更新処理を行う
                 using (var connection = new SQLiteConnection(App.databasePass)) {
                     connection.CreateTable<Customer>();
@@ -68,13 +77,11 @@ namespace CustomerApp {
                 }
 
                 // 更新後、ListViewを再読み込み
-                ReadDatabase(); 
+                ReadDatabase();
 
-                //テキストボックスをクリア
-                NameTextBox.Clear();
-                PhoneTextBox.Clear();
-                AddressTextBox.Clear();
-                
+                //テキストボックスと画像をクリア
+                ClearInputFields();
+
 
             } else {
                 MessageBox.Show("更新する顧客を選択してください");
@@ -110,14 +117,8 @@ namespace CustomerApp {
                 ReadDatabase(); //ListView表示
             }
 
-            //テキストボックスをクリア
-            NameTextBox.Clear();
-            PhoneTextBox.Clear();
-            AddressTextBox.Clear();
-
-            // 画像をクリア
-            _imageBytes = null; // 画像データをクリア
-            CustomerImage.Source = null; // Imageコントロールをクリア
+            //テキストボックスと画像をクリア
+            ClearInputFields();
 
         }
 
