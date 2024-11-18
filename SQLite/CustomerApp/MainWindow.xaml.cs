@@ -32,51 +32,46 @@ namespace CustomerApp {
                 Address = AddressTextBox.Text,
             };
 
-            using(var connection = new SQLiteConnection(App.databasePass)) {
+            using (var connection = new SQLiteConnection(App.databasePass)) {
                 connection.CreateTable<Customer>();
                 connection.Insert(customer);
             }
             ReadDatabase(); //ListView表示
 
-            // テキストボックスをクリア
-            //NameTextBox.Clear();
-            //PhoneTextBox.Clear();
-            //AddressTextBox.Clear();
+            //テキストボックスをクリア
+            NameTextBox.Clear();
+            PhoneTextBox.Clear();
+            AddressTextBox.Clear();
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e) {
-            //// ListViewで選択されているアイテムを取得
-            //var selectedCustomer = CustomerListView.SelectedItem as Customer;
+            var selectedCustomer = CustomerListView.SelectedItem as Customer;
 
-            //// 顧客が選択されていない場合
-            //if (selectedCustomer == null) {
-            //    MessageBox.Show("更新する顧客を選択してください");
-            //    return;
-            //}
+            if (selectedCustomer != null) {
+                // テキストボックスから入力された新しい値を取得
+                selectedCustomer.Name = NameTextBox.Text;
+                selectedCustomer.Phone = PhoneTextBox.Text;
+                selectedCustomer.Address = AddressTextBox.Text;
 
-            //// テキストボックスに選択した顧客の情報をロード
-            //NameTextBox.Text = selectedCustomer.Name;
-            //PhoneTextBox.Text = selectedCustomer.Phone;
-            //AddressTextBox.Text = selectedCustomer.Address;
+                // データベースに接続して更新処理を行う
+                using (var connection = new SQLiteConnection(App.databasePass)) {
+                    connection.CreateTable<Customer>();
 
-            //// 保存ボタンの処理を更新に合わせて変更
-            //// 保存ボタンを押した後、選択した顧客を更新するコードを追加
-            //SaveButton.Click -= SaveButton_Click; // 既存のクリックイベントハンドラーを削除
-            //SaveButton.Click += (s, args) => {
-            //    // 更新された情報を取得
-            //    selectedCustomer.Name = NameTextBox.Text;
-            //    selectedCustomer.Phone = PhoneTextBox.Text;
-            //    selectedCustomer.Address = AddressTextBox.Text;
+                    // 顧客情報をデータベースで更新
+                    connection.Update(selectedCustomer);
+                }
 
-            //    // データベースで更新処理
-            //    using (var connection = new SQLiteConnection(App.databasePass)) {
-            //        connection.CreateTable<Customer>();
-            //        connection.Update(selectedCustomer);
-            //    }
+                // 更新後、ListViewを再読み込み
+                ReadDatabase(); // 顧客リストを再読み込みして更新を反映
 
-            //    // ListViewを再読み込みして更新後のデータを表示
-            //    ReadDatabase();
-            //};
+                //テキストボックスをクリア
+                NameTextBox.Clear();
+                PhoneTextBox.Clear();
+                AddressTextBox.Clear();
+
+            } else {
+                MessageBox.Show("更新する顧客を選択してください");
+            }
         }
 
         //ListView表示
@@ -96,7 +91,7 @@ namespace CustomerApp {
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e) {
             var item = CustomerListView.SelectedItem as Customer;
-            if(item == null) {
+            if (item == null) {
                 MessageBox.Show("削除する行を選択してください");
                 return;
             }
