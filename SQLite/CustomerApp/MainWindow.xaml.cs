@@ -1,4 +1,5 @@
 ﻿using CustomerApp.Objects;
+using Microsoft.Win32;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace CustomerApp {
     /// <summary>
@@ -21,6 +23,7 @@ namespace CustomerApp {
     /// </summary>
     public partial class MainWindow : Window {
         List<Customer> _customers;
+        private byte[] _imageBytes = null; // 画像のバイト配列を保持するフィールド
         public MainWindow() {
             InitializeComponent();
         }
@@ -30,6 +33,7 @@ namespace CustomerApp {
                 Name = NameTextBox.Text,
                 Phone = PhoneTextBox.Text,
                 Address = AddressTextBox.Text,
+                Image = _imageBytes
             };
 
             using (var connection = new SQLiteConnection(App.databasePass)) {
@@ -42,6 +46,9 @@ namespace CustomerApp {
             NameTextBox.Clear();
             PhoneTextBox.Clear();
             AddressTextBox.Clear();
+
+            // 画像をクリア
+            _imageBytes = null; // 画像データをクリア
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e) {
@@ -57,17 +64,17 @@ namespace CustomerApp {
                 using (var connection = new SQLiteConnection(App.databasePass)) {
                     connection.CreateTable<Customer>();
 
-                    // 顧客情報をデータベースで更新
                     connection.Update(selectedCustomer);
                 }
 
                 // 更新後、ListViewを再読み込み
-                ReadDatabase(); // 顧客リストを再読み込みして更新を反映
+                ReadDatabase(); 
 
                 //テキストボックスをクリア
                 NameTextBox.Clear();
                 PhoneTextBox.Clear();
                 AddressTextBox.Clear();
+                
 
             } else {
                 MessageBox.Show("更新する顧客を選択してください");
@@ -103,6 +110,15 @@ namespace CustomerApp {
                 ReadDatabase(); //ListView表示
             }
 
+            //テキストボックスをクリア
+            NameTextBox.Clear();
+            PhoneTextBox.Clear();
+            AddressTextBox.Clear();
+
+            // 画像をクリア
+            _imageBytes = null; // 画像データをクリア
+            CustomerImage.Source = null; // Imageコントロールをクリア
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e) {
@@ -112,10 +128,47 @@ namespace CustomerApp {
         private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             var selectedCustomer = CustomerListView.SelectedItem as Customer;
             if (selectedCustomer != null) {
-                // 顧客が選択されていれば、テキストボックスに値を設定
+                // 顧客データをテキストボックスに表示
                 NameTextBox.Text = selectedCustomer.Name;
                 PhoneTextBox.Text = selectedCustomer.Phone;
                 AddressTextBox.Text = selectedCustomer.Address;
+
+                // 画像を表示
+                if (selectedCustomer.Image != null) {
+                    var image = new BitmapImage();
+                    using (var stream = new MemoryStream(selectedCustomer.Image)) {
+                        image.BeginInit();
+                        image.StreamSource = stream;
+                        image.CacheOption = BitmapCacheOption.OnLoad;
+                        image.EndInit();
+                    }
+                    CustomerImage.Source = image;
+                } else {
+                    // 画像が選択されていない場合は、画像をクリア
+                    CustomerImage.Source = null;
+                }
+            }
+        }
+
+        private void SelectImageButton_Click(object sender, RoutedEventArgs e) {
+            // OpenFileDialogを使って画像を選択
+            var dialog = new OpenFileDialog {
+                Filter = "画像ファイル (*.jpg;*.png;*.jpeg)|*.jpg;*.png;*.jpeg"
+            };
+
+            if (dialog.ShowDialog() == true) {
+                // 選択した画像のファイルパス
+                var filePath = dialog.FileName;
+
+                // 画像をバイト配列に変換
+                _imageBytes = File.ReadAllBytes(filePath);
+
+                // 画像をImageコントロールに表示
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.UriSource = new Uri(filePath);
+                image.EndInit();
+                CustomerImage.Source = image;
             }
         }
     }

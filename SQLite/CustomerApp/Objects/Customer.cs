@@ -22,6 +22,9 @@ namespace CustomerApp.Objects {
         /// </summary>
         public string Address { get; set; }
 
+        // 画像を保存するためのバイト配列
+        public byte[] Image { get; set; }
+
         public override string ToString() {
             return $"{Id}   {Name}   {Phone}   {Address}";
         }

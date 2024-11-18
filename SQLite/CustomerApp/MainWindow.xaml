@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CustomerApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="300" Loaded="Window_Loaded">
+        Title="MainWindow" Height="700" Width="300" Loaded="Window_Loaded">
     <Grid>
         <StackPanel Margin="10">
             <Grid>
@@ -26,6 +26,12 @@
                 <TextBox x:Name="AddressTextBox" Grid.Row="2" Grid.Column="1" Margin="2"/>
             </Grid>
 
+            <!-- 画像選択ボタン -->
+            <Button Content="画像選択" x:Name="SelectImageButton" Click="SelectImageButton_Click" Margin="2"/>
+
+            <!-- 画像を表示するImageコントロール -->
+            <Image x:Name="CustomerImage" Height="100" Margin="2" HorizontalAlignment="Center"/>
+
             <Button Content="Save" x:Name="SaveButton" Click="SaveButton_Click" Margin="2"/>
             <Button Content="Delete" x:Name="DeleteButton" Click="DeleteButton_Click" Margin="2"/>
             <Button Content="Update" x:Name="UpdateButton" Click="UpdateButton_Click" Margin="2"/>
@@ -40,6 +46,11 @@
                             <TextBlock Text="{Binding Name}" FontSize="20"/>
                             <TextBlock Text="{Binding Phone}" Foreground="Blue"/>
                             <TextBlock Text="{Binding Address}" Foreground="Gray"/>
+                            <Image Width="100" Height="100">
+                                <Image.Source>
+                                    <Binding Path="Image" />
+                                </Image.Source>
+                            </Image>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
