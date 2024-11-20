@@ -64,9 +64,11 @@ namespace CustomerApp {
                 selectedCustomer.Phone = PhoneTextBox.Text;
                 selectedCustomer.Address = AddressTextBox.Text;
 
-                // 画像も更新する（_imageBytesがnullでない場合）
+                // 画像がnullでない場合、画像を更新
                 if (_imageBytes != null) {
                     selectedCustomer.Image = _imageBytes; // 新しい画像データを設定
+                } else {
+                    selectedCustomer.Image = null; // 画像がクリアされている場合はnullに設定
                 }
 
                 // データベースに接続して更新処理を行う
@@ -77,9 +79,9 @@ namespace CustomerApp {
 
                 // 更新後、ListViewを再読み込み
                 ReadDatabase();
-                //テキストボックスと画像をクリア
-                ClearInputFields();
 
+                // テキストボックスと画像をクリア
+                ClearInputFields();
             } else {
                 MessageBox.Show("更新するデータを選択してください");
             }
