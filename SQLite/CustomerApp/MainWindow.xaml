@@ -26,7 +26,10 @@
                 <TextBox x:Name="AddressTextBox" Grid.Row="2" Grid.Column="1" Margin="2"/>
             </Grid>
 
-            <Button Content="画像選択" x:Name="SelectImageButton" Click="SelectImageButton_Click" Margin="2"/>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="2">
+                <Button Content="画像選択" x:Name="SelectImageButton" Click="SelectImageButton_Click" Margin="2"/>
+                <Button Content="画像クリア" x:Name="ClearImageButton" Click="ClearImageButton_Click" Margin="2"/>
+            </StackPanel>
 
             <Image x:Name="CustomerImage" Height="100" Margin="2" HorizontalAlignment="Center"/>
 
@@ -39,17 +42,25 @@
             <ListView x:Name="CustomerListView" Margin="0,5,0,0" Height="300" SelectionChanged="CustomerListView_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Id}"/>
-                            <TextBlock Text="{Binding Name}" FontSize="20"/>
-                            <TextBlock Text="{Binding Phone}" Foreground="Blue"/>
-                            <TextBlock Text="{Binding Address}" Foreground="Gray"/>
-                            <Image Width="100" Height="100">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="6*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,20,0">
+                                <TextBlock Text="{Binding Id}"/>
+                                <TextBlock Text="{Binding Name}" FontSize="20"/>
+                                <TextBlock Text="{Binding Phone}" Foreground="Blue"/>
+                                <TextBlock Text="{Binding Address}" Foreground="Gray"/>
+                            </StackPanel>
+
+                            <Image Width="100" Height="100" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image.Source>
                                     <Binding Path="Image" />
                                 </Image.Source>
                             </Image>
-                        </StackPanel>
+                        </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

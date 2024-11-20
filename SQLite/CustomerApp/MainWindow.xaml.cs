@@ -72,16 +72,13 @@ namespace CustomerApp {
                 // データベースに接続して更新処理を行う
                 using (var connection = new SQLiteConnection(App.databasePass)) {
                     connection.CreateTable<Customer>();
-
                     connection.Update(selectedCustomer);
                 }
 
                 // 更新後、ListViewを再読み込み
                 ReadDatabase();
-
                 //テキストボックスと画像をクリア
                 ClearInputFields();
-
 
             } else {
                 MessageBox.Show("更新するデータを選択してください");
@@ -171,6 +168,12 @@ namespace CustomerApp {
                 image.EndInit();
                 CustomerImage.Source = image;
             }
+        }
+
+        private void ClearImageButton_Click(object sender, RoutedEventArgs e) {
+            // 画像をクリアする
+            _imageBytes = null;
+            CustomerImage.Source = null;
         }
     }
 }
