@@ -84,7 +84,7 @@ namespace CustomerApp {
 
 
             } else {
-                MessageBox.Show("更新する顧客を選択してください");
+                MessageBox.Show("更新するデータを選択してください");
             }
         }
 
@@ -129,7 +129,7 @@ namespace CustomerApp {
         private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             var selectedCustomer = CustomerListView.SelectedItem as Customer;
             if (selectedCustomer != null) {
-                // 顧客データをテキストボックスに表示
+                //テキストボックスに表示
                 NameTextBox.Text = selectedCustomer.Name;
                 PhoneTextBox.Text = selectedCustomer.Phone;
                 AddressTextBox.Text = selectedCustomer.Address;
@@ -164,7 +164,7 @@ namespace CustomerApp {
                 // 画像をバイト配列に変換
                 _imageBytes = File.ReadAllBytes(filePath);
 
-                // 画像をImageコントロールに表示
+                //画像をImageコントロールに表示
                 var image = new BitmapImage();
                 image.BeginInit();
                 image.UriSource = new Uri(filePath);

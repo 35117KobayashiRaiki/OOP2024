@@ -26,10 +26,8 @@
                 <TextBox x:Name="AddressTextBox" Grid.Row="2" Grid.Column="1" Margin="2"/>
             </Grid>
 
-            <!-- 画像選択ボタン -->
             <Button Content="画像選択" x:Name="SelectImageButton" Click="SelectImageButton_Click" Margin="2"/>
 
-            <!-- 画像を表示するImageコントロール -->
             <Image x:Name="CustomerImage" Height="100" Margin="2" HorizontalAlignment="Center"/>
 
             <Button Content="Save" x:Name="SaveButton" Click="SaveButton_Click" Margin="2"/>
