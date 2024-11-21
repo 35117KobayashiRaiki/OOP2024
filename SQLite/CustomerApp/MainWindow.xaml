@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CustomerApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="300" Loaded="Window_Loaded">
+        Title="顧客管理システム" Height="700" Width="300" Loaded="Window_Loaded">
     <Grid>
         <StackPanel Margin="10">
             <Grid>
