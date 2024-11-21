@@ -29,6 +29,12 @@ namespace CustomerApp {
         }
 
         private void RegistButton_Click(object sender, RoutedEventArgs e) {
+            // 名前が未入力の場合は処理を中止
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text)) {
+                MessageBox.Show("名前を入力してください。", "入力エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             var customer = new Customer() {
                 Name = NameTextBox.Text,
                 Phone = PhoneTextBox.Text,
