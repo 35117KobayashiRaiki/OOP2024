@@ -33,7 +33,7 @@
 
             <Image x:Name="CustomerImage" Height="100" Margin="2" HorizontalAlignment="Center"/>
 
-            <Button Content="Save" x:Name="SaveButton" Click="SaveButton_Click" Margin="2"/>
+            <Button Content="Regist" x:Name="RegistButton" Click="RegistButton_Click" Margin="2"/>
             <Button Content="Delete" x:Name="DeleteButton" Click="DeleteButton_Click" Margin="2"/>
             <Button Content="Update" x:Name="UpdateButton" Click="UpdateButton_Click" Margin="2"/>
             

@@ -28,7 +28,7 @@ namespace CustomerApp {
             InitializeComponent();
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e) {
+        private void RegistButton_Click(object sender, RoutedEventArgs e) {
             var customer = new Customer() {
                 Name = NameTextBox.Text,
                 Phone = PhoneTextBox.Text,
