@@ -70,17 +70,18 @@ namespace CustomerApp {
                 selectedCustomer.Phone = PhoneTextBox.Text;
                 selectedCustomer.Address = AddressTextBox.Text;
 
-                // 画像がnullでない場合、画像を更新
                 if (_imageBytes != null) {
-                    selectedCustomer.Image = _imageBytes; // 新しい画像データを設定
+                    // 新しい画像が選ばれている場合、画像を更新
+                    selectedCustomer.Image = _imageBytes;
                 } else {
-                    selectedCustomer.Image = null; // 画像がクリアされている場合はnullに設定
+                    // 画像が選ばれていない場合、画像をnullに設定
+                    selectedCustomer.Image = null;
                 }
 
                 // データベースに接続して更新処理を行う
                 using (var connection = new SQLiteConnection(App.databasePass)) {
                     connection.CreateTable<Customer>();
-                    connection.Update(selectedCustomer);
+                    connection.Update(selectedCustomer); // 顧客データの更新
                 }
 
                 // 更新後、ListViewを再読み込み
@@ -133,8 +134,9 @@ namespace CustomerApp {
 
         private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             var selectedCustomer = CustomerListView.SelectedItem as Customer;
+
             if (selectedCustomer != null) {
-                //テキストボックスに表示
+                // テキストボックスに表示
                 NameTextBox.Text = selectedCustomer.Name;
                 PhoneTextBox.Text = selectedCustomer.Phone;
                 AddressTextBox.Text = selectedCustomer.Address;
@@ -169,7 +171,7 @@ namespace CustomerApp {
                 // 画像をバイト配列に変換
                 _imageBytes = File.ReadAllBytes(filePath);
 
-                //画像をImageコントロールに表示
+                // 画像をImageコントロールに表示
                 var image = new BitmapImage();
                 image.BeginInit();
                 image.UriSource = new Uri(filePath);
@@ -182,6 +184,7 @@ namespace CustomerApp {
             // 画像をクリアする
             _imageBytes = null;
             CustomerImage.Source = null;
+
         }
     }
 }

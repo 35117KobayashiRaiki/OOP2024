@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CustomerApp"
         mc:Ignorable="d"
-        Title="顧客管理システム" Height="700" Width="430" Background="#ADD8E6" Loaded="Window_Loaded">
+        Title="顧客管理システム" Height="740" Width="470" Background="#ADD8E6" Loaded="Window_Loaded">
 
     <Window.Resources>
         <Style TargetType="Button">
@@ -25,8 +25,15 @@
             <Setter Property="Foreground" Value="DarkSlateGray"/>
         </Style>
 
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
         <Style TargetType="ListView">
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="#F0F0F0"/>
         </Style>
     </Window.Resources>
 
@@ -44,13 +51,13 @@
                 </Grid.ColumnDefinitions>
                 
                 <TextBlock Text="名前" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" Margin="2" MinWidth="200"/>
+                <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" Margin="2" MinWidth="200" Height="35"/>
                 
                 <TextBlock Text="電話番号" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="PhoneTextBox" Grid.Row="1" Grid.Column="1" Margin="2" MinWidth="200"/>
+                <TextBox x:Name="PhoneTextBox" Grid.Row="1" Grid.Column="1" Margin="2" MinWidth="200" Height="35"/>
                 
                 <TextBlock Text="住所" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="AddressTextBox" Grid.Row="2" Grid.Column="1" Margin="2" MinWidth="200"/>
+                <TextBox x:Name="AddressTextBox" Grid.Row="2" Grid.Column="1" Margin="2" MinWidth="200" Height="35"/>
             </Grid>
 
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="2" Width="94" Height="70">
@@ -76,10 +83,10 @@
                         <GridViewColumn Header="名前" DisplayMemberBinding="{Binding Name}" Width="80"/>
                         <GridViewColumn Header="電話番号" DisplayMemberBinding="{Binding Phone}" Width="90"/>
                         <GridViewColumn Header="住所" DisplayMemberBinding="{Binding Address}" Width="100"/>
-                        <GridViewColumn Header="画像" Width="100">
+                        <GridViewColumn Header="画像" Width="120">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Image.Source>
                                             <Binding Path="Image"/>
                                         </Image.Source>
